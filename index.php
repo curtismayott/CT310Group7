@@ -1,8 +1,12 @@
 <?php
 	$title = "Home";
-	
+	session_name("SocialNetwork");
+	session_start();
+	if(!isset($_SESSION['user_name'])){
+		header("Location: ./login.php");
+	}
 	include("inc/header.php");
-	include("lib/files.php");
+	//include("lib/files.php");
 	
 	$util = new util();
 	//var_dump($util->isIpValid());

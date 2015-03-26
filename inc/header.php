@@ -9,7 +9,7 @@
 	 <meta name="author" content="" />
 	 <meta name="description" content="" />
 	 <meta name="keywords" content="" />
-	 <link href="//www.cs.colostate.edu/~cs310/yr2015sp/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+	 <link href="http://www.cs.colostate.edu/~ct310/yr2015sp/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 	 <title><?php echo $title ?> -  Social Network</title>
 	 <link rel="stylesheet" type="text/css" href="assets/css/style.css">
 </head>
@@ -37,4 +37,3 @@
 
 		
 	</header>
-	<main>

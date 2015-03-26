@@ -1,6 +1,7 @@
 #page-logo{
 	width: 350px;
 	margin-left: 20px;
+	display: inline-block;
 }
 
 
@@ -59,9 +60,10 @@ header input {
 }
 
 nav {
-	float: left;
+	float: right;
 	margin-left: 20px;
 	margin-top: 10px;
+	display: inline-block;
 }
 
 nav ul {

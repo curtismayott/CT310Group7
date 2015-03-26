@@ -1,4 +1,3 @@
-		</main>     
 		<footer>
 			<p>2015 © Copyright Group 7</p>
 		</footer>
