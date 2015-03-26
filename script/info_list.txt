@@ -1,5 +1,0 @@
-bio.txt
-info.txt
-rss.txt
-sophia.db
-users.txt

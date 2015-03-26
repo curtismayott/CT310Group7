@@ -1,9 +1,7 @@
-congrats_kig.jpg
-dead_girl.jpg
-dome_working.jpg
-grad_girl.jpg
-hammer_working.jpg
-lake_girls.jpg
-on_stage.jpg
-profile_pic.jpg
-three_ladies.jpg
+profile1.jpg
+profile2.jpg
+profile3.jpg
+profile4.jpg
+profile5.jpg
+profile6.jpg
+profile7.jpg
