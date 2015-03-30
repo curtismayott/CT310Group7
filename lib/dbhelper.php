@@ -6,6 +6,38 @@ User fields:
 user_type = user OR admin
 logged_in_status = 0 (not logged in) OR 1 (logged in)
 image = not sure, but I think it should be the name of the file (this can also be stored by username.jpg - was trying to think of options)
+
+Function List:
+void :: public function init()
+int :: public function getNumberUsers()
+int :: public function getNumberQuestions()
+void :: public function insertUser($user_name, $user_type, $first_name, $last_name, $password, $question_id, $question_answer, $logged_in_status)
+void :: public function insertQuestion($question_text)
+user :: public function getUserByID($user_id)
+string :: public function getDescriptionByUserID($user_id)
+string :: public function getDescriptionByUsername($user_name)
+void :: public function updateUserDescriptionByUserID($user_id, $description)
+void :: public function updateUserDescriptionByUsername($user_name, $description)
+string :: public function getImageByUserID($user_id)
+string :: public function getImageByUsername($user_name)
+void :: public function updateImageByUserID($user_id, $image)
+void :: public function updateImageByUsername($user_name, $image)
+user :: public function getUserByUsername($user_name)
+user :: public function getUserByUsernameAndPassword($user_name, $password)
+user[] :: public function getAllUsers()
+boolean :: public function verifyUserByQuestion($user_name, $answer_text)
+string :: public function getQuestionByID($question_id)
+string[] :: public function getQuestionArray()
+void :: public function updateUserQuestionByUserID($user_id, $question_id, $answer)
+void :: public function updateUserQuestionByUsername($user_name, $question_id, $answer)
+void :: public function updateUserLoggedInStatus($user_id, $logged_in_status)
+boolean :: public function isUserLoggedIn($user_id)
+user[] :: public function getLoggedInUsers()
+user[] :: public function getLoggedInFriends($user_id)
+user[] :: public function getPendingFriends($user_id, $status)
+boolean :: public function checkFriendsWithIDs($user_id, $friend_id)
+boolean :: public function checkFriendsWithNames($user_name, $friend_name)
+boolean :: public function isAdmin($user_id)
 */
 	class DBHelper{
 		function __construct(){
@@ -83,6 +115,7 @@ image = not sure, but I think it should be the name of the file (this can also b
 				$dbh = null;
 			}
 		}
+		// not tested.
 		public function insertQuestion($question_text){
 			$sql = "INSERT INTO Questions (question_text) VALUES ('" . $question_text . "');";
 			try{
@@ -283,7 +316,13 @@ image = not sure, but I think it should be the name of the file (this can also b
 			$dbh = null;
 			return $questions;
 		}
-		public function updateUserQuestion($user_name, $question_id, $answer){
+		public function updateUserQuestionByUserID($user_id, $question_id, $answer){
+			$dbh = new PDO('sqlite:./lib/socialnetwork.db');
+			$sql = "UPDATE Users SET question_id = " . $question_id . ", question_answer = '" . $answer . "' WHERE user_id = '" . $user_id . "';";
+			$dbh->exec($sql);
+		 	$dbh = null;
+		}
+		public function updateUserQuestionByUsername($user_name, $question_id, $answer){
 			$dbh = new PDO('sqlite:./lib/socialnetwork.db');
 			$sql = "UPDATE Users SET question_id = " . $question_id . ", question_answer = '" . $answer . "' WHERE user_name = '" . $user_name . "';";
 			$dbh->exec($sql);
