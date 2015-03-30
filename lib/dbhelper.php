@@ -18,17 +18,17 @@ image = not sure, but I think it should be the name of the file (this can also b
 					user_type TEXT, first_name TEXT, last_name TEXT, password TEXT, question_id INTEGER, 
 					question_answer TEXT, logged_in_status INTEGER, description TEXT, image TEXT);");
 			print_r("INIT USERS");
-			$dbh->exec("INSERT INTO Users (user_name, user_type, first_name, last_name, password, question_id, question_answer, logged_in_status) 
-						   VALUES ('scat', 'user','Simons', 'Cat', 'test123', '1', 'red', 0, '', '');");
-			$dbh->exec("INSERT INTO Users (user_name, user_type, first_name, last_name, password, question_id, question_answer, logged_in_status)
-						   VALUES ('admin', 'admin', 'Admin', 'istrator', 'password', '1', 'light', 0, '', '');");
+			$this->insertUser('scat', 'user','Simons', 'Cat', 'test123', '1', 'red', 0, '', '');
+			$dbh->exec('admin', 'admin', 'Admin', 'istrator', 'password', '1', 'light', 0, '', '');
 			print_r("INIT QUESTIONS");
 			$sql = "CREATE TABLE IF NOT EXISTS Questions (question_id INTEGER PRIMARY KEY ASC, question_text TEXT);";
 			$dbh->exec($sql);
-			$dbh->exec("INSERT INTO Questions (question_text) VALUES ('What is your favorite color?');");
-			$dbh->exec("INSERT INTO Questions (question_text) VALUES ('What is your favorite place?');");
-			$dbh->exec("INSERT INTO Questions (question_text) VALUES ('What is your favorite food?');");
-			$dbh->exec("INSERT INTO Questions (question_text) VALUES ('What is your favorite foot?');");
+			if($this->getNumberQuestions() == 0){
+				$dbh->exec("INSERT INTO Questions (question_text) VALUES ('What is your favorite color?');");
+				$dbh->exec("INSERT INTO Questions (question_text) VALUES ('What is your favorite place?');");
+				$dbh->exec("INSERT INTO Questions (question_text) VALUES ('What is your favorite food?');");
+				$dbh->exec("INSERT INTO Questions (question_text) VALUES ('What is your favorite foot?');");
+			}
 			print_r("INIT FRIENDS");
 			// status:
 			// 0 = not friends
@@ -74,7 +74,7 @@ image = not sure, but I think it should be the name of the file (this can also b
 				print_r("Cannot insert user that already exists.");
 				$dbh = null;
 			}else{
-				$sql = "INSERT INTO Users (user_name, user_type, first_name, last_name, password, question_id, question_answer, logged_in_status, description) 
+				$sql = "INSERT INTO Users (user_name, user_type, first_name, last_name, password, question_id, question_answer, logged_in_status, description, image) 
 						VALUES ('" . $user_name . "', '" . $user_type . "', '" . $first_name
 						 . "', '" . $last_name . "', '" . $password
 						 . "', " . $question_id . ", '" . $question_answer . "', " . $logged_in_status . ", '', '')";

@@ -24,7 +24,7 @@ $dbh must be created before including header
 ?><div class="leftContent"><?php
 	if(isset($_POST["username"])){
 		print_r($_POST['username'] . " " . $_POST['password']);
-		//DBHelper::init();
+		$dbh->init();
 		$user = $dbh->getUserByUsernameAndPassword($_POST["username"], $_POST['password']);
 		if(is_null($user)){
 			$errors[] = "Username/Password is invalid.";
