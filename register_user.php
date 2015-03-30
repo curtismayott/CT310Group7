@@ -8,7 +8,7 @@
 	require_once "./lib/dbhelper.php";
 	$dbh = new DBHelper();
 	$_SESSION['location'] = "register_user";
-	if(!isset($_SESSION['user_name']) && !$dbh->isAdmin($_SESSION['user_id'])){
+	if(!isset($_SESSION['user_name']) || !$dbh->isAdmin($_SESSION['user_id'])){
 		header("Location: ./login.php");
 	}
 	include("./inc/header.php");
@@ -27,9 +27,6 @@
 			$_POST['questionanswer'],
 			0
 		);
-		if($dbh->getUserByUsername($_POST['username']) != null){
-			print_r("Successfully Inserted User.");
-		}
 	}
 	
 ?>
@@ -63,7 +60,10 @@
 			</div>
 			<div>
 				<label for="usertype">User Type:</label>
-				<input type="text" id="usertype" name="usertype" required  />
+				<select id="usertype" name="usertype" required>
+					<option value="user">User</option>
+					<option value="admin">Admin</option>
+				</select>
 			</div>
 			<div>
 				<label for="firstname">First Name:</label>
@@ -75,7 +75,17 @@
 			</div>
 			<div>
 				<label for="question">Question:</label>
-				<input type="text" id="question" name="question" required  />
+				<select name="question">
+					<option value="">Select</option>
+					<?php
+					$count = 1;
+					$questions = $dbh->getQuestionArray();
+					foreach($questions as $question){?>
+						<option value="<?php echo $count; ?>"><?php echo $question; ?></option>;
+						<?php $count++;
+					}
+					?>
+				</select>
 			</div>
 			<div>
 				<label for="questionanswer">Question Answer:</label>

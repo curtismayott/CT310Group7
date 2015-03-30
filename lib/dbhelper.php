@@ -56,13 +56,23 @@
 		public function insertUser($user_name, $user_type, $first_name, $last_name, $password, $question_id, $question_answer, $logged_in_status){
 			$dbh = new PDO('sqlite:./lib/socialnetwork.db');
 			$dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-			print_r("Insert User.");
-			$sql = "INSERT INTO Users (user_name, user_type, first_name, last_name, password, question_id, question_answer, logged_in_status) 
-					VALUES ('" . $user_name . "', '" . $user_type . "', '" . $first_name
-					 . "', '" . $last_name . "', '" . $password
-					 . "', " . $question_id . ", '" . $question_answer . "', " . $logged_in_status . ")";
-			$dbh->exec($sql);
-			$dbh = null;
+			$sql = "SELECT * FROM Users WHERE user_name = '" . $user_name . "'";
+			$count = 0;
+			foreach($dbh->query($sql) as $result){
+				$count++;
+			}
+			if($count != 0){
+				print_r("Cannot insert user that already exists.");
+				$dbh = null;
+			}else{
+				$sql = "INSERT INTO Users (user_name, user_type, first_name, last_name, password, question_id, question_answer, logged_in_status) 
+						VALUES ('" . $user_name . "', '" . $user_type . "', '" . $first_name
+						 . "', '" . $last_name . "', '" . $password
+						 . "', " . $question_id . ", '" . $question_answer . "', " . $logged_in_status . ")";
+				$dbh->exec($sql);
+				print_r("User inserted successfully");
+				$dbh = null;
+			}
 		}
 		public function insertQuestion($question_text){
 			$sql = "INSERT INTO Questions (question_text) VALUES ('" . $question_text . "');";
