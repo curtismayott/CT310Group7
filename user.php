@@ -9,8 +9,9 @@
 		public $question_id;
 		public $question_answer;
 		public $logged_in_status;
-		function __construct($user_id = '1', $user_name = '', $user_type = 'user', $first_name = '', $last_name = '', 
+		function __construct($user_id = 0, $user_name = '', $user_type = 'user', $first_name = '', $last_name = '', 
 							 $password = '', $question_id = 1, $question_answer = '', $logged_in_status = 0){
+			$this->user_id = $user_id;
 			$this->user_name = $user_name;
 			// either "user" or "admin"
 			$this->user_type = $user_type;

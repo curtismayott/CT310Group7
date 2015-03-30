@@ -3,7 +3,7 @@
 				<p>Users registered</p>
 <!--			
 				<?php
-
+/*
 				$file = new files("users");
 				$userlist = "";	
 				if ($file->exists()) {
@@ -27,7 +27,7 @@
 				}
 
 				echo '</div>';
-
+*/
 				?>
 -->
 			</div>

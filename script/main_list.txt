@@ -1,7 +1,9 @@
 index.php
 login.php
+logout.php
 profileEdit.php
 profile.php
+register_user.php
 search.php
 second_auth.php
 user.php

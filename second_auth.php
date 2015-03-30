@@ -3,12 +3,15 @@
 	ini_set('display_errors', 'On');
     session_name("SocialNetwork");
 	session_start();
+	if(!isset($_SESSION['user_name'])){
+		header("Location:./login.php");
+	}
 	$title = "Verify";
-	include "./inc/header.php";
 	require_once './user.php';
 	require_once './lib/dbhelper.php';
-	$errors = array();
 	$dbh = new DBHelper();
+	include "./inc/header.php";
+	$errors = array();
 	$user = $dbh->getUserByUsername($_SESSION['user_name']);
 	
 	if(isset($_POST["answer"])){
@@ -21,6 +24,8 @@
 		if(!$dbh->verifyUserByQuestion($user->user_name, $_POST['answer'])){
 			$errors[] = "Answer is not correct.";
 		}else{
+			print_r($_SESSION['user_id']);
+			$dbh->updateUserLoggedInStatus($_SESSION['user_id'], 1);
 			$_SESSION['starttime'] = time();
 			if(isset($_SESSION['location'])){
 				$loc = $_SESSION['location'];

@@ -1,14 +1,19 @@
 <?php
+	error_reporting(-1);
+	ini_set('display_errors', 'On');
 	$title = "Home";
 	session_name("SocialNetwork");
 	session_start();
+	require_once "./user.php";
+	require_once "./lib/dbhelper.php";
 	if(!isset($_SESSION['user_name'])){
-		header("Location: ./login.php");
+		header("Location:./login.php");
 	}
-	include("inc/header.php");
+	
+	$dbh = new DBHelper();
+	include("./inc/header.php");
 	//include("lib/files.php");
 	
-	$util = new util();
 	//var_dump($util->isIpValid());
 ?>
 			<div class="leftContent">

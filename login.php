@@ -3,23 +3,29 @@ Session information:
 session_name = 'SocialNetwork'
 session's username storage key = 'user_name'
 session's userid storage key = 'user_id'
+session's location user is visiting (for login redirecting) = 'location'
+session's start time : 'starttime'
+$dbh must be created before including header
 -->
 
 <?php
+	// error reporting
 	error_reporting(-1);
 	ini_set('display_errors', 'On');
+	// end error reporting
 	$title = "Login";
 	session_name("SocialNetwork");
 	session_start();
 	require_once "./user.php";
 	require_once "./lib/dbhelper.php";
+	$dbh = new DBHelper();
 	include("./inc/header.php");
 	$errors = array();
 ?><div class="leftContent"><?php
 	if(isset($_POST["username"])){
 		print_r($_POST['username'] . " " . $_POST['password']);
 		//DBHelper::init();
-		$user = DBHelper::getUserByUsernameAndPassword($_POST["username"], $_POST['password']);
+		$user = $dbh->getUserByUsernameAndPassword($_POST["username"], $_POST['password']);
 		if(is_null($user)){
 			$errors[] = "Username/Password is invalid.";
 		}else{?>
