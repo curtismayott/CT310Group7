@@ -1,6 +1,12 @@
 <?php
 	require_once "./user.php";
-
+/*
+NOTES
+User fields:
+user_type = user OR admin
+logged_in_status = 0 (not logged in) OR 1 (logged in)
+image = not sure, but I think it should be the name of the file (this can also be stored by username.jpg - was trying to think of options)
+*/
 	class DBHelper{
 		function __construct(){
 			
@@ -10,12 +16,12 @@
 			$dbh = new PDO('sqlite:./lib/socialnetwork.db');
 			$dbh->exec("CREATE TABLE IF NOT EXISTS Users (user_id INTEGER PRIMARY KEY ASC, user_name TEXT, 
 					user_type TEXT, first_name TEXT, last_name TEXT, password TEXT, question_id INTEGER, 
-					question_answer TEXT, logged_in_status INTEGER);");
+					question_answer TEXT, logged_in_status INTEGER, description TEXT, image TEXT);");
 			print_r("INIT USERS");
 			$dbh->exec("INSERT INTO Users (user_name, user_type, first_name, last_name, password, question_id, question_answer, logged_in_status) 
-						   VALUES ('scat', 'user','Simons', 'Cat', 'test123', '1', 'red', 0);");
+						   VALUES ('scat', 'user','Simons', 'Cat', 'test123', '1', 'red', 0, '', '');");
 			$dbh->exec("INSERT INTO Users (user_name, user_type, first_name, last_name, password, question_id, question_answer, logged_in_status)
-						   VALUES ('admin', 'admin', 'Admin', 'istrator', 'password', '1', 'light', 0);");
+						   VALUES ('admin', 'admin', 'Admin', 'istrator', 'password', '1', 'light', 0, '', '');");
 			print_r("INIT QUESTIONS");
 			$sql = "CREATE TABLE IF NOT EXISTS Questions (question_id INTEGER PRIMARY KEY ASC, question_text TEXT);";
 			$dbh->exec($sql);
@@ -24,7 +30,10 @@
 			$dbh->exec("INSERT INTO Questions (question_text) VALUES ('What is your favorite food?');");
 			$dbh->exec("INSERT INTO Questions (question_text) VALUES ('What is your favorite foot?');");
 			print_r("INIT FRIENDS");
-			// 
+			// status:
+			// 0 = not friends
+			// 1 = pending
+			// 2 = accepted
 			$sql = "CREATE TABLE IF NOT EXISTS Friends (friend_id INTEGER PRIMARY KEY ASC, user_id INTEGER, friend_user_id INTEGER,
 					status INTEGER)";
 			$dbh->exec($sql);
@@ -65,10 +74,10 @@
 				print_r("Cannot insert user that already exists.");
 				$dbh = null;
 			}else{
-				$sql = "INSERT INTO Users (user_name, user_type, first_name, last_name, password, question_id, question_answer, logged_in_status) 
+				$sql = "INSERT INTO Users (user_name, user_type, first_name, last_name, password, question_id, question_answer, logged_in_status, description) 
 						VALUES ('" . $user_name . "', '" . $user_type . "', '" . $first_name
 						 . "', '" . $last_name . "', '" . $password
-						 . "', " . $question_id . ", '" . $question_answer . "', " . $logged_in_status . ")";
+						 . "', " . $question_id . ", '" . $question_answer . "', " . $logged_in_status . ", '', '')";
 				$dbh->exec($sql);
 				print_r("User inserted successfully");
 				$dbh = null;
@@ -103,10 +112,66 @@
 				$user->question_id = $result['question_id'];
 				$user->question_answer = $result['question_answer'];
 				$user->logged_in_status = $result['logged_in_status'];
+				$user->description = $result['description'];
+				$user->image = $result['image'];
 				$dbh = null;
 				return $user;
 			}
 			$dbh = null;
+		}
+		public function getDescriptionByUserID($user_id){
+			$dbh = new PDO('sqlite:./lib/socialnetwork.db');
+			$sql = "SELECT * FROM Users WHERE user_id = " . $user_id . ";";
+			foreach($dbh->query($sql) as $result){
+				$dbh = null;
+				return $result['description'];
+			}
+			$dbh = null;
+		}
+		public function getDescriptionByUsername($user_name){
+			$dbh = new PDO('sqlite:./lib/socialnetwork.db');
+			$sql = "SELECT * FROM Users WHERE user_name = '" . $user_name . "';";
+			foreach($dbh->query($sql) as $result){
+				$dbh = null;
+				return $result['description'];
+			}
+			$dbh = null;
+		}
+		public function updateUserDescriptionByUserID($user_id, $description){
+			$dbh = new PDO('sqlite:./lib/socialnetwork.db');
+			$sql = "UPDATE Users SET description = '" . $description . "' WHERE user_id = " . $user_id;
+			$dbh->exec($sql);
+		}
+		public function updateUserDescriptionByUsername($user_name, $description){
+			$dbh = new PDO('sqlite:./lib/socialnetwork.db');
+			$sql = "UPDATE Users SET description = '" . $description . "' WHERE user_name = '" . $user_name . "'";
+			$dbh->exec($sql);
+		}
+		public function getImageByUserID($user_id){
+			$dbh = new PDO('sqlite:./lib/socialnetwork.db');
+			$sql = "SELECT * FROM Users WHERE user_id = " . $user_id;
+			foreach($dbh->query($sql) as $result){
+				$dbh = null;
+				return $result['image'];
+			}
+		}
+		public function getImageByUsername($user_name){
+			$dbh = new PDO('sqlite:./lib/socialnetwork.db');
+			$sql = "SELECT * FROM Users WHERE user_name = " . $user_name;
+			foreach($dbh->query($sql) as $result){
+				$dbh = null;
+				return $result['image'];
+			}
+		}
+		public function updateImageByUserID($user_id, $image){
+			$dbh = new PDO('sqlite:./lib/socialnetwork.db');
+			$sql = "UPDATE Users SET image = '" . $image . "' WHERE user_id = " . $user_id;
+			$dbh->exec($sql);
+		}
+		public function updateImageByUsername($user_name, $image){
+			$dbh = new PDO('sqlite:./lib/socialnetwork.db');
+			$sql = "UPDATE Users SET image = '" . $image . "' WHERE user_name = " . $user_name;
+			$dbh->exec($sql);
 		}
 		public function getUserByUsername($user_name){
 			$dbh = new PDO('sqlite:./lib/socialnetwork.db');
@@ -122,6 +187,8 @@
 				$user->question_id = $result['question_id'];
 				$user->question_answer = $result['question_answer'];
 				$user->logged_in_status = $result['logged_in_status'];
+				$user->description = $result['description'];
+				$user->image = $result['image'];
 				$dbh = null;
 				return $user;
 			}
@@ -143,6 +210,8 @@
 					$user->question_id = $result['question_id'];
 					$user->question_answer = $result['question_answer'];
 					$user->logged_in_status = $result['logged_in_status'];
+					$user->description = $result['description'];
+					$user->image = $result['image'];
 					$dbh = null;
 					return $user;
 				}
@@ -153,12 +222,26 @@
 			return null;
 		}
 		public function getAllUsers(){
-			$sql = "SELECT user_id FROM Users";
-			$userIDs = $this->query($sql);
+			$dbh = new PDO('sqlite:./lib/socialnetwork.db');
+			$sql = "SELECT * FROM Users";
 			$users = array();
-			for($i = 0; $i < count($userIDs); $i++){
-				$users[] = getUserById($userIDs[$i]);
+			foreach($dbh->query($sql) as $result){
+				$user = new User();
+				$user->user_id = $result['user_id'];
+				$user->user_name = $result['user_name'];
+				$user->user_type = $result['user_type'];
+				$user->first_name = $result['first_name'];
+				$user->last_name = $result['last_name'];
+				$user->password = $result['password'];
+				$user->question_id = $result['question_id'];
+				$user->question_answer = $result['question_answer'];
+				$user->logged_in_status = $result['logged_in_status'];
+				$user->description = $result['description'];
+				$user->image = $result['image'];
+				$users[] = $user;
 			}
+			$dbh = null;
+			return $users;
 		}
 		public function verifyUserByQuestion($user_name, $answer_text){
 			$dbh = new PDO('sqlite:./lib/socialnetwork.db');
@@ -233,6 +316,8 @@
 				$user->question_id = $result['question_id'];
 				$user->question_answer = $result['question_answer'];
 				$user->logged_in_status = $result['logged_in_status'];
+				$user->description = $result['description'];
+				$user->image = $result['image'];
 				$users[] = $user;
 			}
 			$dbh = null;
@@ -240,7 +325,8 @@
 		}
 		public function getLoggedInFriends($user_id){
 			$dbh = new PDO('sqlite:./lib/socialnetwork.db');
-			$sql = "SELECT * FROM Users WHERE logged_in_status = 1 AND IN (SELECT friend_user_id FROM Friends WHERE user_id = " . $user_id . ");";
+			$sql = "SELECT * FROM Users WHERE logged_in_status = 1 
+					AND IN (SELECT friend_user_id FROM Friends WHERE user_id = " . $user_id . " AND status = 2);";
 			$users = array();
 			foreach($dbh->query($sql) as $result){
 				$user = new User();
@@ -253,10 +339,60 @@
 				$user->question_id = $result['question_id'];
 				$user->question_answer = $result['question_answer'];
 				$user->logged_in_status = $result['logged_in_status'];
+				$user->description = $result['description'];
+				$user->image = $result['image'];
 				$users[] = $user;
 			}
 			$dbh = null;
 			return $users;
+		}
+		public function getPendingFriends($user_id, $status){
+			$dbh = new PDO('sqlite:./lib/socialnetwork.db');
+			$sql = "SELECT * FROM Users WHERE logged_in_status = 1 
+					AND IN (SELECT friend_user_id FROM Friends WHERE user_id = " . $user_id . " AND status = 1);";
+			$users = array();
+			foreach($dbh->query($sql) as $result){
+				$user = new User();
+				$user->user_id = $result['user_id'];
+				$user->user_name = $result['user_name'];
+				$user->user_type = $result['user_type'];
+				$user->first_name = $result['first_name'];
+				$user->last_name = $result['last_name'];
+				$user->password = $result['password'];
+				$user->question_id = $result['question_id'];
+				$user->question_answer = $result['question_answer'];
+				$user->logged_in_status = $result['logged_in_status'];
+				$user->description = $result['description'];
+				$user->image = $result['image'];
+				$users[] = $user;
+			}
+			$dbh = null;
+			return $users;
+		}
+		public function checkFriendsWithIDs($user_id, $friend_id){
+			$dbh = new PDO('sqlite:./lib/socialnetwork.db');
+			$sql = "SELECT * FROM Friends WHERE (user_id = " . $user_id . " AND friend_user_id = " . $friend_id . ") " . 
+					" OR (user_id = " . $friend_id . " AND friend_user_id = " . $user_id . ")";
+			foreach($dbh->query($sql) as $result){
+				$dbh = null;
+				return true;
+			}
+			$dbh = null;
+			return false;
+		}
+		public function checkFriendsWithNames($user_name, $friend_name){
+			$dbh = new PDO('sqlite:./lib/socialnetwork.db');
+			$sql = "SELECT * FROM Friends WHERE (user_id = (SELECT user_id FROM Users WHERE user_name = '" . $user_name . "') 
+					AND friend_user_id = (SELECT user_id FROM Users WHERE user_name = '" . $friend_name . "'))
+					OR 
+					(user_id = (SELECT user_id FROM Users WHERE user_name = '" . $friend_name . "') 
+					AND friend_user_id = (SELECT user_id FROM Users WHERE user_name = '" . $user_name . "')))";
+			foreach($dbh->query($sql) as $result){
+				$dbh = null;
+				return true;
+			}
+			$dbh = null;
+			return false;
 		}
 		
 		public function isAdmin($user_id){

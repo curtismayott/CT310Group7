@@ -9,8 +9,10 @@
 		public $question_id;
 		public $question_answer;
 		public $logged_in_status;
+		public $description;
+		public $image;
 		function __construct($user_id = 0, $user_name = '', $user_type = 'user', $first_name = '', $last_name = '', 
-							 $password = '', $question_id = 1, $question_answer = '', $logged_in_status = 0){
+							 $password = '', $question_id = 1, $question_answer = '', $logged_in_status = 0, $description = '', $image = ''){
 			$this->user_id = $user_id;
 			$this->user_name = $user_name;
 			// either "user" or "admin"
@@ -21,6 +23,8 @@
 			$this->question_id = $question_id;
 			$this->question_answer = $question_answer;
 			$this->logged_in_status = $logged_in_status;
+			$this->description = $description;
+			$this->image = $image;
 		}
 		/*
 		public function contents() {
