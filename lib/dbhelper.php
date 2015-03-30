@@ -119,6 +119,7 @@ image = not sure, but I think it should be the name of the file (this can also b
 			}
 			$dbh = null;
 		}
+		// have not tested.
 		public function getDescriptionByUserID($user_id){
 			$dbh = new PDO('sqlite:./lib/socialnetwork.db');
 			$sql = "SELECT * FROM Users WHERE user_id = " . $user_id . ";";
@@ -128,6 +129,7 @@ image = not sure, but I think it should be the name of the file (this can also b
 			}
 			$dbh = null;
 		}
+		// have not tested.
 		public function getDescriptionByUsername($user_name){
 			$dbh = new PDO('sqlite:./lib/socialnetwork.db');
 			$sql = "SELECT * FROM Users WHERE user_name = '" . $user_name . "';";
@@ -137,16 +139,19 @@ image = not sure, but I think it should be the name of the file (this can also b
 			}
 			$dbh = null;
 		}
+		// have not tested.
 		public function updateUserDescriptionByUserID($user_id, $description){
 			$dbh = new PDO('sqlite:./lib/socialnetwork.db');
 			$sql = "UPDATE Users SET description = '" . $description . "' WHERE user_id = " . $user_id;
 			$dbh->exec($sql);
 		}
+		// have not tested.
 		public function updateUserDescriptionByUsername($user_name, $description){
 			$dbh = new PDO('sqlite:./lib/socialnetwork.db');
 			$sql = "UPDATE Users SET description = '" . $description . "' WHERE user_name = '" . $user_name . "'";
 			$dbh->exec($sql);
 		}
+		// have not tested.
 		public function getImageByUserID($user_id){
 			$dbh = new PDO('sqlite:./lib/socialnetwork.db');
 			$sql = "SELECT * FROM Users WHERE user_id = " . $user_id;
@@ -155,6 +160,7 @@ image = not sure, but I think it should be the name of the file (this can also b
 				return $result['image'];
 			}
 		}
+		// have not tested.
 		public function getImageByUsername($user_name){
 			$dbh = new PDO('sqlite:./lib/socialnetwork.db');
 			$sql = "SELECT * FROM Users WHERE user_name = " . $user_name;
@@ -163,11 +169,13 @@ image = not sure, but I think it should be the name of the file (this can also b
 				return $result['image'];
 			}
 		}
+		// have not tested.
 		public function updateImageByUserID($user_id, $image){
 			$dbh = new PDO('sqlite:./lib/socialnetwork.db');
 			$sql = "UPDATE Users SET image = '" . $image . "' WHERE user_id = " . $user_id;
 			$dbh->exec($sql);
 		}
+		// have not tested.
 		public function updateImageByUsername($user_name, $image){
 			$dbh = new PDO('sqlite:./lib/socialnetwork.db');
 			$sql = "UPDATE Users SET image = '" . $image . "' WHERE user_name = " . $user_name;
@@ -221,6 +229,7 @@ image = not sure, but I think it should be the name of the file (this can also b
 			$dbh = null;
 			return null;
 		}
+		// have not tested.
 		public function getAllUsers(){
 			$dbh = new PDO('sqlite:./lib/socialnetwork.db');
 			$sql = "SELECT * FROM Users";
@@ -301,6 +310,7 @@ image = not sure, but I think it should be the name of the file (this can also b
 			$dbh = null;
 			return false;
 		}
+		// have not tested.
 		public function getLoggedInUsers(){
 			$dbh = new PDO('sqlite:./lib/socialnetwork.db');
 			$sql = "SELECT * FROM Users WHERE logged_in_status = 1;";
@@ -323,6 +333,7 @@ image = not sure, but I think it should be the name of the file (this can also b
 			$dbh = null;
 			return $users;
 		}
+		// have not tested
 		public function getLoggedInFriends($user_id){
 			$dbh = new PDO('sqlite:./lib/socialnetwork.db');
 			$sql = "SELECT * FROM Users WHERE logged_in_status = 1 
@@ -346,6 +357,7 @@ image = not sure, but I think it should be the name of the file (this can also b
 			$dbh = null;
 			return $users;
 		}
+		// have not tested.
 		public function getPendingFriends($user_id, $status){
 			$dbh = new PDO('sqlite:./lib/socialnetwork.db');
 			$sql = "SELECT * FROM Users WHERE logged_in_status = 1 
@@ -369,6 +381,7 @@ image = not sure, but I think it should be the name of the file (this can also b
 			$dbh = null;
 			return $users;
 		}
+		// have not tested.
 		public function checkFriendsWithIDs($user_id, $friend_id){
 			$dbh = new PDO('sqlite:./lib/socialnetwork.db');
 			$sql = "SELECT * FROM Friends WHERE (user_id = " . $user_id . " AND friend_user_id = " . $friend_id . ") " . 
@@ -380,6 +393,7 @@ image = not sure, but I think it should be the name of the file (this can also b
 			$dbh = null;
 			return false;
 		}
+		// have not tested.
 		public function checkFriendsWithNames($user_name, $friend_name){
 			$dbh = new PDO('sqlite:./lib/socialnetwork.db');
 			$sql = "SELECT * FROM Friends WHERE (user_id = (SELECT user_id FROM Users WHERE user_name = '" . $user_name . "') 
