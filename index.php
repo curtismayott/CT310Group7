@@ -1,20 +1,22 @@
 <?php
+// begin all page head
+	// error reporting - optional
 	error_reporting(-1);
 	ini_set('display_errors', 'On');
+	// end error reporting
 	$title = "Home";
 	session_name("SocialNetwork");
 	session_start();
 	require_once "./user.php";
 	require_once "./lib/dbhelper.php";
+	// possibly not required
 	if(!isset($_SESSION['user_name'])){
 		header("Location:./login.php");
 	}
 	
-	$dbh = new DBHelper();
+	$dbh = new DBHelper();		// required for header
 	include("./inc/header.php");
-	//include("lib/files.php");
-	
-	//var_dump($util->isIpValid());
+// end all page head
 ?>
 			<div class="leftContent">
 				<h2>Welcome to Group 7 Social Network</h2>
