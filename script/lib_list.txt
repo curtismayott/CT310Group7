@@ -1,5 +1,6 @@
 config.php
 dbhelper.php
 files.php
+socialnetwork.db
 userOperations.php
 util.php

@@ -1,9 +1,9 @@
 			<div class="rightContent">
 				<h2>Users</h2>
 				<p>Users registered</p>
-				
+<!--			
 				<?php
-/*
+
 				$file = new files("users");
 				$userlist = "";	
 				if ($file->exists()) {
@@ -29,5 +29,5 @@
 				echo '</div>';
 
 				?>
-*/	
+-->
 			</div>

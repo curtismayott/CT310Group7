@@ -1,10 +1,12 @@
 <?php
+	error_reporting(-1);
+	ini_set('display_errors', 'On');
     session_name("SocialNetwork");
 	session_start();
 	$title = "Verify";
-	include "./header.php";
-	require_once './users.php';
-	require_once './dbhelper.php';
+	include "./inc/header.php";
+	require_once './user.php';
+	require_once './lib/dbhelper.php';
 	$errors = array();
 	$dbh = new DBHelper();
 	$user = $dbh->getUserByUsername($_SESSION['user_name']);
@@ -14,8 +16,6 @@
 		//Only return simple error. Do you know
 		//why not say "username not found" or
 		//"password not valid"?
-		
-		
 		
 		//User::readUsers(); 
 		if(!$dbh->verifyUserByQuestion($user->user_name, $_POST['answer'])){
@@ -65,5 +65,6 @@
 	</div>
 
 <?php
-	include "./footer.php";
+	include_once("inc/rightContent.php");
+	include "./inc/footer.php";
 ?>
