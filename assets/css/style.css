@@ -1,19 +1,14 @@
+* {
+  margin: 0px;
+  padding: 0px;
+}
+
 #page-logo{
 	/*width: 350px;*/
 	margin-left: 20px;
 	display: inline-block;
 }
 
-
-
-
-#page-logo a{
-	text-decoration: none;
-}
-
-#page-logo #link-to-home{
-	padding: 20px;
-}
 
 .box{
   width: 260px;
@@ -23,13 +18,6 @@
 }
 
 
-
-
-
-* {
-  margin: 0px;
-  padding: 0px;
-}
 
 body {
 	background: #FFF2E7;
@@ -42,25 +30,35 @@ body {
 /*HEADER*/
 
 header {
-	background: #FFF8F3;
+	background: #32313f;
 	width: 100%;
 	margin: 0vh 0vh;
 	padding:2vh 0vh 0vh 0vh;
-	height: 150px;
+	/*height: 100px; */
 	color: #4b4d52;
 }
 
-
-
+#logo{
+	width: 110px;
+	padding-bottom:10px;
+}
 header input {
 	float: right;
 	margin-right: 20px;
 }
 
+header h2, header h4{
+	float: left;
+	color: #FFF2E7;
+	padding-right: 10px;
+	text-align: center;
+}
+
+
 nav {
 	float: right;
 	margin-left: 20px;
-	margin-top: 10px;
+	margin-top: 30px;
 	display: inline-block;
 }
 
