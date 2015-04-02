@@ -4,10 +4,12 @@
 	$userName = isset($_GET['user']) ? $_GET['user'] : "";
 	//$profile = isset($_POST['profile']) ? $_POST['profile'] : "";
 	
-	
+	session_name("SocialNetwork");
+	session_start();
 	include("inc/header.php");
 	include("lib/files.php");
 	include("lib/userOperations.php");
+	
 
 	$util = new util();
 	$user = $dbh->getUserByUsername($userName);  //test db usage... Lisa

@@ -42,7 +42,7 @@ $dbh must be created before including header
 
 		<?php 
 			if(count($errors) > 0){ ?>
-			<div>
+			<div class="alert alert-danger">
 			<h4>Please fix the following errors.</h4>
 				<ul>
 					<?php 	
@@ -59,18 +59,18 @@ $dbh must be created before including header
 			} //End if count($errors);
 		?>
 		<form method="post" action="./login.php">
-			<div>
+			<div class="form-group">
 				<label for="username">Username:</label>
 				<input type="text" id="username" name="username" required  />
-			</div>
-			<div>
+			</div >
+			<div class="form-group">
 				<label for="password">Password:</label>
 				<input type="password" id="password" name="password" required />
 			
 			</div>
-			<div>
-				<input type="submit" />
-			</div>
+			
+				<input type="submit" class="btn btn-info"/>
+			
 		</form>
 	</div>
 <?php

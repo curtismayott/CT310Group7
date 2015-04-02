@@ -2,6 +2,7 @@
 	include_once("./lib/config.php");
 	include_once("./lib/dbhelper.php");
 	include_once("./lib/util.php");
+	require_once "./user.php";
 	$dbh = new DBHelper();
 ?>
 <!DOCTYPE html>
@@ -29,8 +30,8 @@
 			<div class = "col-md-6">
 				<nav>
 				<ul>
-					<li><a id="home-nav" href="index.php">HOME</a></li>
-					<li><a id="search-page" href="search.php">SEARCH PAGE</a></li>
+					<li><a href="index.php">HOME</a></li>
+					<li><a href="search.php">SEARCH</a></li>
 					<?php 
 						if(isset($_SESSION['user_name']) && $dbh->isAdmin($_SESSION['user_id']) && $dbh->isUserLoggedIn($_SESSION['user_id'])){
 						// add link to register users (isAdmin = true)
@@ -41,11 +42,13 @@
 					<?php
 						if(isset($_SESSION['user_name']) && $dbh->isUserLoggedIn($_SESSION['user_id'])){
 							?>
-							<li>Logged in as <a id="logout" href="./logout.php"><?php echo $_SESSION['user_name']; ?></a></li>
+							<li>Logged in as <a href="profile.php?user=<?php echo $_SESSION['user_name'];?>">
+							<?php echo $_SESSION['user_name'];?></a></li>
+							<li><a href="./logout.php">Log out </a></li>
 							<?php
 						}else{
 							?>
-							<li><a id="login" href="./login.php">Login</a>
+							<li><a href="./login.php">Login</a>
 							<?php
 						}
 					?>

@@ -241,7 +241,8 @@ footer {
 	color: #FFF2E7;
 	font-size: 12px;
 	background: #32313f;
-	padding-left: 30px;	
+	padding-left: 30px;
+	padding-right:30px;	
 	margin-bottom: -10px;
 	
 	width:100%;
@@ -256,6 +257,15 @@ footer p{
 	margin-bottom: -5px;
 }
 
+#logo2{
+	width: 40px;
+	padding-bottom:10px;
+	float:right;
+	
+	-moz-transform: scaleX(-1); /* For Mozilla Firefox */
+	-o-transform: scaleX(-1);   /* For Opera */
+	-webkit-transform: scaleX(-1); /* For Safari, Google chrome */
+}
 form {
 	height: 90%;
 }

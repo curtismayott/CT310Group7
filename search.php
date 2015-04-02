@@ -1,9 +1,11 @@
 <?php
 	$title = "Search Users";
 	$userName = isset($_GET['user']) ? $_GET['user'] : "";
-
+	session_name("SocialNetwork");
+	session_start();
 	include("inc/header.php");
 	include("lib/files.php");
+	
 ?>
  			<div class="leftContent">
 				<h2>Userlist</h2>				
