@@ -16,7 +16,8 @@
 	 <link rel="stylesheet" type="text/css" href="assets/css/style.css">
 </head>
 <body>
-	<header class = "container-fluid">
+<div id = "wrap">
+	<header class = "container-fluid" >
 		<div class = "row">
 			<div class = "col-lg-1 col-md-1 hidden-xs">
 				<a href="index.php"> <img id = "logo" src = "assets/img/logo.gif" alt="dog logo"> </a>

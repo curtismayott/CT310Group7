@@ -74,9 +74,9 @@
 
 			</div>
 			
-			<div class="rightContent">
-			
-			</div>
+			<?php
+				include_once("inc/rightContent.php")
+			?>
 
 <?php
 	include("inc/footer.php");
