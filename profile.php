@@ -2,20 +2,25 @@
 	$title = "Profile Page";
 	
 	$userName = isset($_GET['user']) ? $_GET['user'] : "";
-	$profile = isset($_POST['profile']) ? $_POST['profile'] : "";
-
+	//$profile = isset($_POST['profile']) ? $_POST['profile'] : "";
+	
+	
 	include("inc/header.php");
 	include("lib/files.php");
 	include("lib/userOperations.php");
 
 	$util = new util();
+	$user = $dbh->getUserByUsername($userName);  //test db usage... Lisa
+	
 ?>
 
 			<div class="leftContent">
 				<?php
+				echo "This is the profile page for $user->first_name, $user->last_name";
+				
 				//print_r($userName);						
 				if ($userName == "") {
-					echo '<h2>Profile not found!</h2>';
+					echo '<h2>username not received!</h2>';
 				} else {
 					$file = new files("users");
 					

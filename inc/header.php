@@ -1,6 +1,8 @@
 <?php
 	include_once("./lib/config.php");
+	include_once("./lib/dbhelper.php");
 	include_once("./lib/util.php");
+	$dbh = new DBHelper();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -16,17 +18,18 @@
 <body>
 	<header class = "container-fluid">
 		<div class = "row">
-			<img class = "col-lg-2 col-md-2 hidden-xs" id = "logo" src = "assets/img/logo.gif">
-			<div class = "col-md-6">
-			<h2>Group 7 Social Network </h2> <br>
-			<h4> >> <?php echo " " . $title; ?> </h4>
+			<div class = "col-lg-1 col-md-1 hidden-xs">
+				<a href="index.php"> <img id = "logo" src = "assets/img/logo.gif" alt="dog logo"> </a>
 			</div>
-			<div class = "col-md-4">
+			<div class = "col-md-5">
+				<a href="index.php"> <h2>Group 7 Social Network </h2> </a><br>
+				<h4> >> <?php echo " " . $title; ?> </h4>
+			</div>
+			<div class = "col-md-6">
 				<nav>
 				<ul>
 					<li><a id="home-nav" href="index.php">HOME</a></li>
-					<li><a id="search-page" href="search.php?user=leonardovolpatto">SEARCH PAGE</a></li>
-					<!-- <li><a href="#">CONTACT</a></li> -->
+					<li><a id="search-page" href="search.php">SEARCH PAGE</a></li>
 					<?php 
 						if(isset($_SESSION['user_name']) && $dbh->isAdmin($_SESSION['user_id']) && $dbh->isUserLoggedIn($_SESSION['user_id'])){
 						// add link to register users (isAdmin = true)
@@ -51,4 +54,5 @@
 		</div>	
 	</header>
 	<main>
+		<div class = "content">
 		

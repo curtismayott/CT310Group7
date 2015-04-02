@@ -1,9 +1,11 @@
+		</div> <!-- end content-->
 		</main>
 		<footer>
+			<hr>
 			<p>2015 © Copyright Group 7</p>
 			<?php
 			if(isset($_SESSION['user_name']) && $dbh->isUserLoggedIn($_SESSION['user_id'])){
-				?><p style="color:blue;">Logged in for: <?php echo (time() - $_SESSION['starttime']); ?> seconds.</p><?php
+				?><p>Logged in for: <?php echo (time() - $_SESSION['starttime']); ?> seconds.</p><?php
 			}
 			?>
 			
