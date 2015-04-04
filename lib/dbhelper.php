@@ -50,8 +50,8 @@ boolean :: public function isAdmin($user_id)
 					user_type TEXT, first_name TEXT, last_name TEXT, password TEXT, question_id INTEGER, 
 					question_answer TEXT, logged_in_status INTEGER, description TEXT, image TEXT);");
 			print_r("INIT USERS");
-			$this->insertUser('scat', 'user','Simons', 'Cat', 'test123', '1', 'red', 0, '', '');
-			$dbh->exec('admin', 'admin', 'Admin', 'istrator', 'password', '1', 'light', 0, '', '');
+			$this->insertUser('scat', 'user','Simons', 'Cat', 'test123', '1', 'red', 0, 'Suspendisse sodales accumsan erat a luctus. Nulla interdum elit vitae ultricies commodo. Suspendisse dignissim dolor vel accumsan hendrerit. Cras pharetra suscipit odio, quis pharetra nunc dignissim ultrices. Integer consectetur gravida fermentum. Ut tempus sem vel libero mollis, tincidunt vulputate leo fringilla. Proin ut orci vulputate, condimentum orci eu, convallis dolor. Quisque mattis, diam vitae elementum rutrum, turpis orci rutrum orci, vel maximus felis sapien sit amet nisl. Aliquam lacinia nisl eu pulvinar accumsan. Proin quis nisl sed nisi placerat molestie. In sagittis rhoncus mauris et hendrerit. Nunc vitae augue nec ante fermentum rutrum. In hac habitasse platea dictumst. Ut sit amet quam nulla.', '');
+			$this->insertUser('admin', 'admin', 'Admin', 'istrator', 'password', '1', 'light', 0, 'Suspendisse sodales accumsan erat a luctus. Nulla interdum elit vitae ultricies commodo. Suspendisse dignissim dolor vel accumsan hendrerit. Cras pharetra suscipit odio, quis pharetra nunc dignissim ultrices. Integer consectetur gravida fermentum. Ut tempus sem vel libero mollis, tincidunt vulputate leo fringilla. Proin ut orci vulputate, condimentum orci eu, convallis dolor. Quisque mattis, diam vitae elementum rutrum, turpis orci rutrum orci, vel maximus felis sapien sit amet nisl. Aliquam lacinia nisl eu pulvinar accumsan. Proin quis nisl sed nisi placerat molestie. In sagittis rhoncus mauris et hendrerit. Nunc vitae augue nec ante fermentum rutrum. In hac habitasse platea dictumst. Ut sit amet quam nulla.', '');
 			print_r("INIT QUESTIONS");
 			$sql = "CREATE TABLE IF NOT EXISTS Questions (question_id INTEGER PRIMARY KEY ASC, question_text TEXT);";
 			$dbh->exec($sql);
@@ -96,7 +96,7 @@ boolean :: public function isAdmin($user_id)
 			}
 			return $count;
 		}
-		public function insertUser($user_name, $user_type, $first_name, $last_name, $password, $question_id, $question_answer, $logged_in_status){
+		public function insertUser($user_name, $user_type, $first_name, $last_name, $password, $question_id, $question_answer, $logged_in_status, $description, $image){
 			$dbh = new PDO('sqlite:./lib/socialnetwork.db');
 			$dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 			$sql = "SELECT * FROM Users WHERE user_name = '" . $user_name . "'";
@@ -111,7 +111,8 @@ boolean :: public function isAdmin($user_id)
 				$sql = "INSERT INTO Users (user_name, user_type, first_name, last_name, password, question_id, question_answer, logged_in_status, description, image) 
 						VALUES ('" . $user_name . "', '" . $user_type . "', '" . $first_name
 						 . "', '" . $last_name . "', '" . $password
-						 . "', " . $question_id . ", '" . $question_answer . "', " . $logged_in_status . ", '', '')";
+						 . "', " . $question_id . ", '" . $question_answer . "', " . $logged_in_status 
+						 . ", '" . $description . "', '" . $image . "')";
 				$dbh->exec($sql);
 				print_r("User inserted successfully");
 				$dbh = null;
