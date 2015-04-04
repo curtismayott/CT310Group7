@@ -214,6 +214,11 @@ hr {
 	font-family: slim;
 }
 
+.rightContent td img{
+	width: 10px;
+	padding-right:3px;
+}
+
 .rightContent ul li {
 	padding-left: 20px;
 	color: #4b4d52;

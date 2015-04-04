@@ -17,7 +17,7 @@
 						//echo "<td> <img src = \"$src\" alt = \"$u->user_name\"> </td>";
 						echo "<td> <a href = \"$href\"> $u->user_name </a> </td>";
 						if($u->logged_in_status == 1){ //logged in
-							echo "<td> (online) </td>";
+							echo "<td> <img src=\"assets/img/dot.gif\">online </td>";
 						}else{
 							echo "<td>  </td>";
 						}
