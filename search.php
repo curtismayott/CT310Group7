@@ -13,7 +13,7 @@
 
 				<div id="search-list">
 					<?php
-
+					/*
 					$file = new files("users");
 					$userlist = "";	
 					if ($file->exists()) {
@@ -22,6 +22,7 @@
 						print_r("ERROR");
 					}
 					$i = 1;
+					
 					foreach($userlist as $user){
 						
 						echo '<div class="profile-thumb">
@@ -32,7 +33,7 @@
 								</div>';
 
 					}
-
+					*/
 					?>
 				</div>
 

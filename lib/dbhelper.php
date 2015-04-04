@@ -47,11 +47,13 @@ boolean :: public function isAdmin($user_id)
 			print_r("INIT BEGIN");
 			$dbh = new PDO('sqlite:./lib/socialnetwork.db');
 			$dbh->exec("CREATE TABLE IF NOT EXISTS Users (user_id INTEGER PRIMARY KEY ASC, user_name TEXT, 
-					user_type TEXT, first_name TEXT, last_name TEXT, password TEXT, question_id INTEGER, 
-					question_answer TEXT, logged_in_status INTEGER, description TEXT, image TEXT);");
+					user_type TEXT, first_name TEXT, last_name TEXT, gender TEXT, mobile VARCHAR, email TEXT, 
+					password TEXT, question_id INTEGER, question_answer TEXT, logged_in_status INTEGER, 
+					description TEXT, image TEXT);");
 			print_r("INIT USERS");
-			$this->insertUser('scat', 'user','Simons', 'Cat', 'test123', '1', 'red', 0, 'Suspendisse sodales accumsan erat a luctus. Nulla interdum elit vitae ultricies commodo. Suspendisse dignissim dolor vel accumsan hendrerit. Cras pharetra suscipit odio, quis pharetra nunc dignissim ultrices. Integer consectetur gravida fermentum. Ut tempus sem vel libero mollis, tincidunt vulputate leo fringilla. Proin ut orci vulputate, condimentum orci eu, convallis dolor. Quisque mattis, diam vitae elementum rutrum, turpis orci rutrum orci, vel maximus felis sapien sit amet nisl. Aliquam lacinia nisl eu pulvinar accumsan. Proin quis nisl sed nisi placerat molestie. In sagittis rhoncus mauris et hendrerit. Nunc vitae augue nec ante fermentum rutrum. In hac habitasse platea dictumst. Ut sit amet quam nulla.', '');
-			$this->insertUser('admin', 'admin', 'Admin', 'istrator', 'password', '1', 'light', 0, 'Suspendisse sodales accumsan erat a luctus. Nulla interdum elit vitae ultricies commodo. Suspendisse dignissim dolor vel accumsan hendrerit. Cras pharetra suscipit odio, quis pharetra nunc dignissim ultrices. Integer consectetur gravida fermentum. Ut tempus sem vel libero mollis, tincidunt vulputate leo fringilla. Proin ut orci vulputate, condimentum orci eu, convallis dolor. Quisque mattis, diam vitae elementum rutrum, turpis orci rutrum orci, vel maximus felis sapien sit amet nisl. Aliquam lacinia nisl eu pulvinar accumsan. Proin quis nisl sed nisi placerat molestie. In sagittis rhoncus mauris et hendrerit. Nunc vitae augue nec ante fermentum rutrum. In hac habitasse platea dictumst. Ut sit amet quam nulla.', '');
+			$this->insertUser('scat', 'user','Simons', 'Cat', 'Male', '303030303', 'simonscat@test','test123', '1', 'red', 0, 'Im a cat', '');
+			$this->insertUser('admin', 'admin', 'Admin', 'istrator', '???', '970970970', 'admin@ct310grp7', 'password', '1', 'light', 0, 'Im an admin', '');
+
 			print_r("INIT QUESTIONS");
 			$sql = "CREATE TABLE IF NOT EXISTS Questions (question_id INTEGER PRIMARY KEY ASC, question_text TEXT);";
 			$dbh->exec($sql);
@@ -69,8 +71,6 @@ boolean :: public function isAdmin($user_id)
 			$sql = "CREATE TABLE IF NOT EXISTS Friends (friend_id INTEGER PRIMARY KEY ASC, user_id INTEGER, friend_user_id INTEGER,
 					status INTEGER)";
 			$dbh->exec($sql);
-			$this->addFriend(1, 2, 2);
-			$this->addFriend(2, 1, 2);
 			// insert friends list for testing
 			
 			print_r("INIT END");
@@ -105,16 +105,18 @@ boolean :: public function isAdmin($user_id)
 				$count++;
 			}
 			if($count != 0){
-				print_r("Cannot insert user that already exists.");
+				//print_r("Cannot insert user that already exists.");
+				echo "<div class=\"alert alert-danger\"> Cannot insert user that already exists </div>";
 				$dbh = null;
 			}else{
-				$sql = "INSERT INTO Users (user_name, user_type, first_name, last_name, password, question_id, question_answer, logged_in_status, description, image) 
+				$sql = "INSERT INTO Users (user_name, user_type, first_name, last_name, gender, mobile, email, password, question_id, question_answer, logged_in_status, description, image) 
 						VALUES ('" . $user_name . "', '" . $user_type . "', '" . $first_name
 						 . "', '" . $last_name . "', '" . $password
 						 . "', " . $question_id . ", '" . $question_answer . "', " . $logged_in_status 
 						 . ", '" . $description . "', '" . $image . "')";
 				$dbh->exec($sql);
-				print_r("User inserted successfully");
+				//print_r("User inserted successfully");
+				echo "<div class=\"alert alert-success\"> User inserted successfully </div>";
 				$dbh = null;
 			}
 		}
@@ -144,6 +146,9 @@ boolean :: public function isAdmin($user_id)
 				$user->user_type = $result['user_type'];
 				$user->first_name = $result['first_name'];
 				$user->last_name = $result['last_name'];
+				$user->gender = $result['gender'];
+				$user->mobile = $result['mobile'];
+				$user->email = $result['email'];
 				$user->password = $result['password'];
 				$user->question_id = $result['question_id'];
 				$user->question_answer = $result['question_answer'];
@@ -227,6 +232,9 @@ boolean :: public function isAdmin($user_id)
 				$user->logged_in_status = $result['user_type'];
 				$user->first_name = $result['first_name'];
 				$user->last_name = $result['last_name'];
+				//$user->gender = $result['gender'];
+				//$user->mobile = $result['mobile'];
+				//$user->email = $result['email'];
 				$user->password = $result['password'];
 				$user->question_id = $result['question_id'];
 				$user->question_answer = $result['question_answer'];
@@ -250,6 +258,9 @@ boolean :: public function isAdmin($user_id)
 					$user->user_type = $result['user_type'];
 					$user->first_name = $result['first_name'];
 					$user->last_name = $result['last_name'];
+					$user->gender = $result['gender'];
+					$user->mobile = $result['mobile'];
+					$user->email = $result['email'];
 					$user->password = $result['password'];
 					$user->question_id = $result['question_id'];
 					$user->question_answer = $result['question_answer'];
@@ -277,6 +288,9 @@ boolean :: public function isAdmin($user_id)
 				$user->user_type = $result['user_type'];
 				$user->first_name = $result['first_name'];
 				$user->last_name = $result['last_name'];
+				//$user->gender = $result['gender'];
+				//$user->mobile = $result['mobile'];
+				//$user->email = $result['email'];
 				$user->password = $result['password'];
 				$user->question_id = $result['question_id'];
 				$user->question_answer = $result['question_answer'];
@@ -364,6 +378,9 @@ boolean :: public function isAdmin($user_id)
 				$user->user_type = $result['user_type'];
 				$user->first_name = $result['first_name'];
 				$user->last_name = $result['last_name'];
+				$user->gender = $result['gender'];
+				$user->mobile = $result['mobile'];
+				$user->email = $result['email'];
 				$user->password = $result['password'];
 				$user->question_id = $result['question_id'];
 				$user->question_answer = $result['question_answer'];
@@ -388,6 +405,9 @@ boolean :: public function isAdmin($user_id)
 				$user->user_type = $result['user_type'];
 				$user->first_name = $result['first_name'];
 				$user->last_name = $result['last_name'];
+				$user->gender = $result['gender'];
+				$user->mobile = $result['mobile'];
+				$user->email = $result['email'];
 				$user->password = $result['password'];
 				$user->question_id = $result['question_id'];
 				$user->question_answer = $result['question_answer'];
@@ -410,6 +430,9 @@ boolean :: public function isAdmin($user_id)
 				$user->user_type = $result['user_type'];
 				$user->first_name = $result['first_name'];
 				$user->last_name = $result['last_name'];
+				//$user->gender = $result['gender'];
+				//$user->mobile = $result['mobile'];
+				//$user->email = $result['email'];
 				$user->password = $result['password'];
 				$user->question_id = $result['question_id'];
 				$user->question_answer = $result['question_answer'];
@@ -434,6 +457,9 @@ boolean :: public function isAdmin($user_id)
 				$user->user_type = $result['user_type'];
 				$user->first_name = $result['first_name'];
 				$user->last_name = $result['last_name'];
+				$user->gender = $result['gender'];
+				$user->mobile = $result['mobile'];
+				$user->email = $result['email'];
 				$user->password = $result['password'];
 				$user->question_id = $result['question_id'];
 				$user->question_answer = $result['question_answer'];
@@ -471,12 +497,6 @@ boolean :: public function isAdmin($user_id)
 			}
 			$dbh = null;
 			return false;
-		}
-		public function addFriend($user_id, $friend_id, $status){
-			$dbh = new PDO('sqlite:./lib/socialnetwork.db');
-			$dbh->exec("INSERT INTO Friends (user_id, friend_user_id, status)
-						VALUES(" . $user_id . ", " . $friend_id . ", " . $status . ")");
-			$dbh = null;
 		}
 		
 		public function isAdmin($user_id){

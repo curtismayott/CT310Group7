@@ -5,13 +5,16 @@
 		public $user_type;
 		public $first_name;
 		public $last_name;
+		public $gender;
+		public $mobile;
+		public $email;
 		public $password;
 		public $question_id;
 		public $question_answer;
 		public $logged_in_status;
 		public $description;
 		public $image;
-		function __construct($user_id = 0, $user_name = '', $user_type = 'user', $first_name = '', $last_name = '', 
+		function __construct($user_id = 0, $user_name = '', $user_type = 'user', $first_name = '', $last_name = '', $gender = '', $mobile = '', $email = '', 
 							 $password = '', $question_id = 1, $question_answer = '', $logged_in_status = 0, $description = '', $image = ''){
 			$this->user_id = $user_id;
 			$this->user_name = $user_name;
@@ -19,6 +22,9 @@
 			$this->user_type = $user_type;
 			$this->first_name = $first_name;
 			$this->last_name = $last_name;
+			$this->gender = $gender;
+			$this->mobile = $mobile;
+			$this->email = $email;
 			$this->password = $password;
 			$this->question_id = $question_id;
 			$this->question_answer = $question_answer;
