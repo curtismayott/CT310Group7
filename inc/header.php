@@ -23,11 +23,11 @@
 			<div class = "col-lg-1 col-md-1 hidden-xs">
 				<a href="index.php"> <img id = "logo" src = "assets/img/logo.gif" alt="dog logo"> </a>
 			</div>
-			<div class = "col-md-5">
+			<div class = "col-md-6">
 				<a href="index.php"> <h2>PomerFurball </h2> </a><br><br>
 				<h4>  <?php echo "  the Social Network >> " . $title; ?> </h4>
 			</div>
-			<div class = "col-md-6">
+			<div class = "col-md-5">
 				<nav>
 				<ul>
 					<li><a href="index.php">HOME</a></li>
@@ -39,12 +39,15 @@
 							<li><a id="register-user" href="./register_user.php">Register</a></li>
 							<?php
 					}?>
+				
 					<?php
 						if(isset($_SESSION['user_name']) && $dbh->isUserLoggedIn($_SESSION['user_id'])){
 							?>
-							<li>Logged in as <a href="profile.php?user=<?php echo $_SESSION['user_name'];?>">
-							<?php echo $_SESSION['user_name'];?></a></li>
-							<li><a href="./logout.php">Log out </a></li>
+							</ul>
+							<ul>
+								<li>Logged in as <a href="profile.php?user=<?php echo $_SESSION['user_name'];?>">
+								<?php echo $_SESSION['user_name'];?></a></li>
+								<li><a href="./logout.php">Log out </a></li>
 							<?php
 						}else{
 							?>

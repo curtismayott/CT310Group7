@@ -50,30 +50,30 @@
 			} //End if count($errors);
 		?>
 		<form method="post" action="./register_user.php">
-			<div>
+			<div class="form-group">
 				<label for="username">Username:</label>
 				<input type="text" id="username" name="username" required  />
 			</div>
-			<div>
+			<div class="form-group">
 				<label for="password">Password:</label>
 				<input type="password" id="password" name="password" required />
 			</div>
-			<div>
+			<div class="form-group">
 				<label for="usertype">User Type:</label>
 				<select id="usertype" name="usertype" required>
 					<option value="user">User</option>
 					<option value="admin">Admin</option>
 				</select>
 			</div>
-			<div>
+			<div class="form-group">
 				<label for="firstname">First Name:</label>
 				<input type="text" id="firstname" name="firstname" required  />
-			</div>
-			<div>
+			</div >
+			<div class="form-group">
 				<label for="lastname">Last Name:</label>
 				<input type="text" id="lastname" name="lastname" required  />
 			</div>
-			<div>
+			<div class="form-group">
 				<label for="question">Question:</label>
 				<select name="question">
 					<option value="">Select</option>
@@ -87,12 +87,12 @@
 					?>
 				</select>
 			</div>
-			<div>
+			<div class="form-group">
 				<label for="questionanswer">Question Answer:</label>
 				<input type="text" id="questionanswer" name="questionanswer" required  />
 			</div>
-			<div>
-				<input type="submit" />
+			<div class="form-group">
+				<input type="submit" class="btn btn-info"/>
 			</div>
 		</form>
 	</div>
