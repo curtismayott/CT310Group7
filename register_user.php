@@ -22,6 +22,9 @@
 			$_POST['usertype'],
 			$_POST['firstname'],
 			$_POST['lastname'],
+			$_POST['gender'],
+			$_POST['mobile'],
+			$_POST['email'],
 			$_POST['password'],
 			$_POST['question'],
 			$_POST['questionanswer'],
@@ -72,6 +75,23 @@
 			<div class="form-group">
 				<label for="lastname">Last Name:</label>
 				<input type="text" id="lastname" name="lastname" required  />
+			</div>
+			<div>
+				<label for="gender">Gender:</label>
+				<select name="gender">
+					<option value="">Select</option>
+					<option value="male">Male</option>
+					<option value="female">Female</option>
+					<option value="na">N/A</option>
+				</select>
+			</div>
+			<div>
+				<label for="mobile">Mobile number:</label>
+				<input type="text" id="mobile" name="mobile" required />
+			</div>
+			<div>
+				<label for="email">Email:</label>
+				<input type="text" id="email" name="email" required />
 			</div>
 			<div class="form-group">
 				<label for="question">Question:</label>
