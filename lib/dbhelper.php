@@ -396,6 +396,28 @@ boolean :: public function isAdmin($user_id)
 			$dbh = null;
 			return $users;
 		}
+		public function getFriendsByUserID($user_id){
+			$dbh = new PDO('sqlite:./lib/socialnetwork.db');
+			$sql = "SELECT * FROM Users WHERE user_id IN (SELECT friend_user_id FROM Friends WHERE user_id = " . $user_id . " AND status = 2);";
+			$users = array();
+			foreach($dbh->query($sql) as $result){
+				$user = new User();
+				$user->user_id = $result['user_id'];
+				$user->user_name = $result['user_name'];
+				$user->user_type = $result['user_type'];
+				$user->first_name = $result['first_name'];
+				$user->last_name = $result['last_name'];
+				$user->password = $result['password'];
+				$user->question_id = $result['question_id'];
+				$user->question_answer = $result['question_answer'];
+				$user->logged_in_status = $result['logged_in_status'];
+				$user->description = $result['description'];
+				$user->image = $result['image'];
+				$users[] = $user;
+			}
+			$dbh = null;
+			return $users;
+		}
 		// have not tested.
 		public function getPendingFriends($user_id, $status){
 			$dbh = new PDO('sqlite:./lib/socialnetwork.db');
