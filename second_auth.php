@@ -2,7 +2,7 @@
 	error_reporting(-1);
 	ini_set('display_errors', 'On');
     session_name("SocialNetwork");
-	session_start();
+	 session_start();
 	if(!isset($_SESSION['user_name'])){
 		header("Location:./login.php");
 	}
@@ -42,7 +42,7 @@
 	<div class="leftContent">
 		<?php 
 			if(count($errors) > 0){ ?>
-			<div>
+			<div class="alert alert-danger">
 			<h4>Please fix the following errors.</h4>
 				<ul>
 					<?php 	
@@ -59,12 +59,12 @@
 			} //End if count($errors);
 		?>
 		<form method="post" action="./second_auth.php">
-			<div>
+			<div class="form-group"
 				<label for="answer"><?php echo $dbh->getQuestionByID($user->question_id); ?></label>
 				<input type="text" id="answer" name="answer" required  />
-			</div>
+			</div class="form-group">
 			<div>
-				<input type="submit" />
+				<input type="submit" class="btn btn-info"/>
 			</div>
 		</form>
 	</div>

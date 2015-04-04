@@ -332,7 +332,7 @@ boolean :: public function isAdmin($user_id)
 		
 		// logged in status access
 		public function updateUserLoggedInStatus($user_id, $logged_in_status){
-			print_r($user_id . " " . $logged_in_status);
+			//print_r($user_id . " " . $logged_in_status);
 			$dbh = new PDO('sqlite:./lib/socialnetwork.db');
 			$sql = "UPDATE Users SET logged_in_status = " . $logged_in_status . " WHERE user_id = " . $user_id;
 			$dbh->exec($sql);

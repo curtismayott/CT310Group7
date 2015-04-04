@@ -1,9 +1,11 @@
 <?php
-	error_reporting(-1);
-	ini_set('display_errors', 'On');
-	$title = "Login";
 	session_name("SocialNetwork");
 	session_start();
+	
+	error_reporting(-1);
+	ini_set('display_errors', 'On');
+	$title = "Log out";
+	
 	require_once "./user.php";
 	require_once "./lib/dbhelper.php";
 	$dbh = new DBHelper();
