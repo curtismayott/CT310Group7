@@ -51,8 +51,8 @@ boolean :: public function isAdmin($user_id)
 					password TEXT, question_id INTEGER, question_answer TEXT, logged_in_status INTEGER, 
 					description TEXT, image TEXT);");
 			print_r("INIT USERS");
-			$this->insertUser('scat', 'user','Simons', 'Cat', 'Male', '303030303', 'simonscat@test','test123', '1', 'red', 0, '', '');
-			$dbh->exec('admin', 'admin', 'Admin', 'istrator', '???', '970970970', 'admin@ct310grp7', 'password', '1', 'light', 0, '', '');
+			$this->insertUser('scat', 'user','Simons', 'Cat', 'Male', '303030303', 'simonscat@test','test123', '1', 'red', 0, 'Im a cat', '');
+			$dbh->exec('admin', 'admin', 'Admin', 'istrator', '???', '970970970', 'admin@ct310grp7', 'password', '1', 'light', 0, 'Im an admin', '');
 			print_r("INIT QUESTIONS");
 			$sql = "CREATE TABLE IF NOT EXISTS Questions (question_id INTEGER PRIMARY KEY ASC, question_text TEXT);";
 			$dbh->exec($sql);

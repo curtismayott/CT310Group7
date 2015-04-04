@@ -10,7 +10,7 @@
 	include("lib/files.php");
 	include("lib/userOperations.php");
 	
-
+	$helper = new DBHelper();
 	$util = new util();
 	$user = $dbh->getUserByUsername($userName);  //test db usage... Lisa
 	
@@ -18,7 +18,7 @@
 
 			<div class="leftContent">
 				<?php
-				echo "This is the profile page for $user->first_name, $user->last_name";
+				echo "This is the profile page for $user->first_name $user->last_name";
 				
 				//print_r($userName);						
 				if ($userName == "") {
@@ -32,8 +32,10 @@
 						
 						if (isset($_SESSION['user_name']) && $dbh->isUserLoggedIn($_SESSION['user_id'])){
 							echo '<h4><b>Description: </b></h4>';
+							$desc = $helper->getDescriptionByUserID($user->user_id);
+							echo $desc;
 						} else {
-							//echo '<h2>Only logged in users can view profile information!</h2>';
+							echo '<h2>Only logged in users can view profile information!</h2>';
 						}
 						
 						//$op = new userOperations($file);
@@ -58,7 +60,9 @@
 				<hr/>
 				<?php
 					if($util->isIpValid()){
+						if($_SESSION['user_name'] == $user->user_name){
 						echo '<p><a href="profileEdit.php?user=' . $userName . '">Edit information</a></p>';
+						}
 					}
 				?>
 			</div>
