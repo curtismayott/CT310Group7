@@ -24,8 +24,8 @@
 				<a href="index.php"> <img id = "logo" src = "assets/img/logo.gif" alt="dog logo"> </a>
 			</div>
 			<div class = "col-md-5">
-				<a href="index.php"> <h2>Group 7 Social Network </h2> </a><br>
-				<h4> >> <?php echo " " . $title; ?> </h4>
+				<a href="index.php"> <h2>PomerFurball </h2> </a><br><br>
+				<h4>  <?php echo "  the Social Network >> " . $title; ?> </h4>
 			</div>
 			<div class = "col-md-6">
 				<nav>
