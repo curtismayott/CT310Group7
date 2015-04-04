@@ -69,8 +69,6 @@ boolean :: public function isAdmin($user_id)
 			$sql = "CREATE TABLE IF NOT EXISTS Friends (friend_id INTEGER PRIMARY KEY ASC, user_id INTEGER, friend_user_id INTEGER,
 					status INTEGER)";
 			$dbh->exec($sql);
-			$this->addFriend(1, 2, 2);
-			$this->addFriend(2, 1, 2);
 			// insert friends list for testing
 			
 			print_r("INIT END");
@@ -105,7 +103,8 @@ boolean :: public function isAdmin($user_id)
 				$count++;
 			}
 			if($count != 0){
-				print_r("Cannot insert user that already exists.");
+				//print_r("Cannot insert user that already exists.");
+				echo "<div class=\"alert alert-danger\"> Cannot insert user that already exists </div>";
 				$dbh = null;
 			}else{
 				$sql = "INSERT INTO Users (user_name, user_type, first_name, last_name, password, question_id, question_answer, logged_in_status, description, image) 
@@ -113,7 +112,8 @@ boolean :: public function isAdmin($user_id)
 						 . "', '" . $last_name . "', '" . $password
 						 . "', " . $question_id . ", '" . $question_answer . "', " . $logged_in_status . ", '', '')";
 				$dbh->exec($sql);
-				print_r("User inserted successfully");
+				//print_r("User inserted successfully");
+				echo "<div class=\"alert alert-success\"> User inserted successfully </div>";
 				$dbh = null;
 			}
 		}
@@ -470,12 +470,6 @@ boolean :: public function isAdmin($user_id)
 			}
 			$dbh = null;
 			return false;
-		}
-		public function addFriend($user_id, $friend_id, $status){
-			$dbh = new PDO('sqlite:./lib/socialnetwork.db');
-			$dbh->exec("INSERT INTO Friends (user_id, friend_user_id, status)
-						VALUES(" . $user_id . ", " . $friend_id . ", " . $status . ")");
-			$dbh = null;
 		}
 		
 		public function isAdmin($user_id){
