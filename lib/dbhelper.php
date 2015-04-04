@@ -69,6 +69,8 @@ boolean :: public function isAdmin($user_id)
 			$sql = "CREATE TABLE IF NOT EXISTS Friends (friend_id INTEGER PRIMARY KEY ASC, user_id INTEGER, friend_user_id INTEGER,
 					status INTEGER)";
 			$dbh->exec($sql);
+			$this->addFriend(1, 2, 2);
+			$this->addFriend(2, 1, 2);
 			// insert friends list for testing
 			
 			print_r("INIT END");
@@ -468,6 +470,12 @@ boolean :: public function isAdmin($user_id)
 			}
 			$dbh = null;
 			return false;
+		}
+		public function addFriend($user_id, $friend_id, $status){
+			$dbh = new PDO('sqlite:./lib/socialnetwork.db');
+			$dbh->exec("INSERT INTO Friends (user_id, friend_user_id, status)
+						VALUES(" . $user_id . ", " . $friend_id . ", " . $status . ")");
+			$dbh = null;
 		}
 		
 		public function isAdmin($user_id){
