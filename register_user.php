@@ -33,7 +33,7 @@
 
 		<?php 
 			if(count($errors) > 0){ ?>
-			<div>
+			<div class="alert alert-danger">
 			<h4>Please fix the following errors.</h4>
 				<ul>
 					<?php 	

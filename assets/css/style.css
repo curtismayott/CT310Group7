@@ -30,7 +30,7 @@ html, body {
 
 body {
 	background: #FFF2E7;
-	font-family: Arial;
+	font-family: "normal", Arial;
 	font-size: 12px;
 	line-height: 20px;
 	color: #4b4d52;
@@ -47,10 +47,6 @@ header {
 	color: #4b4d52;
 }
 
-@font-face {
-   font-family: title;
-   src: url(KaushanScript-Regular.otf);
-}
 
 #logo{
 	width: 90px;
@@ -66,10 +62,11 @@ header h2, header h4{
 	color: #FFF2E7;
 	padding-right: 10px;
 	text-align: center;
+	font-family: "normal", Arial;
 }
 
 header h2{
-	font-family: title;
+	font-family: title; 
 	font-size: 45px;
 	color: #ff9933;
 	padding-left:20px;
@@ -104,7 +101,7 @@ nav a {
 }
 
 nav a:hover {
-	background: #ff99ff;
+	background: #ffccff;
 	color: #000033;
 }
 
@@ -128,6 +125,7 @@ nav a:visited {
 
 h2 {
 	margin-bottom: 10px;
+	font-family: "normal", Arial;
 }
 
 hr {
@@ -138,7 +136,7 @@ hr {
 .leftContent {
 	float: left;
 	width: 70%;
-	padding: 2%;
+	padding: 4% 2%;
 	/*overflow-y: auto;*/
 	font-size: 12pt;
 }
@@ -197,13 +195,23 @@ hr {
 .rightContent {
 	/*background: #cccccc;
 	background: #eae7e2;*/
+	font-size: 12pt;
 	float: right;
 	width: 30%;
 	height: 100%;
 	padding: 2%;
 	overflow-y: auto;
+	overflow-x: scroll
 	text-align: left;
 	color: #4b4d52;
+}
+
+.rightContent table {
+    width: 100%;
+}
+
+.rightContent h3{
+	font-family: slim;
 }
 
 .rightContent ul li {
@@ -262,6 +270,10 @@ footer {
 	position:absolute;
 	bottom:0;
 
+}
+
+.clear{
+	clear: both;
 }
 
 footer p{
@@ -338,4 +350,21 @@ div.save-success {
 	background: #FFD6FF;
 	padding: 12px;
 	float: right;
+}
+
+
+@font-face {
+   font-family: title;
+   src: url(KaushanScript-Regular.otf);
+}
+
+
+@font-face {
+   font-family: slim;
+   src: url(Alegreya-Regular.otf);
+}
+
+@font-face {
+   font-family: normal;
+   src: url(AndBasR.ttf);
 }

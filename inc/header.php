@@ -23,11 +23,11 @@
 			<div class = "col-lg-1 col-md-1 hidden-xs">
 				<a href="index.php"> <img id = "logo" src = "assets/img/logo.gif" alt="dog logo"> </a>
 			</div>
-			<div class = "col-md-6">
+			<div class = "col-md-7">
 				<a href="index.php"> <h2>PomerFurball </h2> </a><br><br>
 				<h4>  <?php echo "  the Social Network >> " . $title; ?> </h4>
 			</div>
-			<div class = "col-md-5">
+			<div class = "col-md-4">
 				<nav>
 				<ul>
 					<li><a href="index.php">HOME</a></li>
