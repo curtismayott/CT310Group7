@@ -114,8 +114,8 @@ nav a:visited {
 }
 
 .content{
-	max-width: 1000px;
-	min-height:400px;
+	max-width: 100%;
+	/*min-height:400px;*/
 	margin-left: auto;
 	margin-right:auto;
 	padding-bottom:80px; /*for footer*/
@@ -136,7 +136,7 @@ hr {
 .leftContent {
 	float: left;
 	width: 70%;
-	padding: 4% 2%;
+	padding: 4% 2% 4% 10%;
 	/*overflow-y: auto;*/
 	font-size: 12pt;
 }
@@ -201,7 +201,7 @@ hr {
 	height: 100%;
 	padding: 2%;
 	overflow-y: auto;
-	overflow-x: scroll
+	overflow-x: scroll;
 	text-align: left;
 	color: #4b4d52;
 }
