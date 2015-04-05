@@ -31,14 +31,26 @@
 						echo '<img class="img" src="assets/img/' . $userName . '.jpg" alt="' . $userName . '\'s profile pic">';
 						
 						if (isset($_SESSION['user_name']) && $dbh->isUserLoggedIn($_SESSION['user_id'])){
+							
+							//add friend button
+						if($_SESSION['user_name'] != $user->user_name){
+							echo '<form action="profile.php?user=' . $user->user_name . '" method="post">';
+							echo '<input type="submit" name="friend" value="Add friend" />';
+							echo '</form>';
+							if (isset($_POST['friend'])){
+								$dbh->requestFriend($_SESSION['user_id'], $user->user_id);
+							}
+						}
+							
+							//desc, gender, etc.
 							echo '<h4><b>Description: </b></h4>';
 							$desc = $helper->getDescriptionByUserID($user->user_id);
 							echo $desc;
 							$gender = $helper->getGenderByUsername($user->user_name);
 							echo '<h5>Gender: ' . $gender . '</h5>';
-							$mobile = $helper->getMobileByUsername($user->mobile);
+							$mobile = $helper->getMobileByUsername($user->user_name);
 							echo '<h5>Mobile: ' . $mobile . '</h5>';
-							$email = $helper->getEmailByUsername($user->email);
+							$email = $helper->getEmailByUsername($user->user_name);
 							echo '<h5>Email: ' . $email . '</h5>';
 							
 						} else {
