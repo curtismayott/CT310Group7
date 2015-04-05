@@ -459,9 +459,9 @@ boolean :: public function isAdmin($user_id)
 				$user->user_type = $result['user_type'];
 				$user->first_name = $result['first_name'];
 				$user->last_name = $result['last_name'];
-				//$user->gender = $result['gender'];
-				//$user->mobile = $result['mobile'];
-				//$user->email = $result['email'];
+				$user->gender = $result['gender'];
+				$user->mobile = $result['mobile'];
+				$user->email = $result['email'];
 				$user->password = $result['password'];
 				$user->question_id = $result['question_id'];
 				$user->question_answer = $result['question_answer'];
@@ -538,6 +538,12 @@ boolean :: public function isAdmin($user_id)
 			$dbh = new PDO('sqlite:./lib/socialnetwork.db');
 			$dbh->exec("UPDATE Friends SET status = 2 WHERE user_id = " . $user_id . " AND friend_user_id = " . $friend_user_id . ";");
 			$dbh->exec("INSERT INTO Friends (user_id, friend_user_id, status) VALUES(" . $friend_user_id . ", " . $user_id . " , 2)");
+			$dbh = null;
+		}
+		public function rejectFriend($user_id, $friend_user_id){
+			$dbh = new PDO('sqlite:./lib/socialnetwork.db');
+			$sql = "DELETE FROM Friends WHERE user_id = " . $user_id;
+			$dbh = null;
 		}
 		public function isAdmin($user_id){
 			$dbh = new PDO('sqlite:./lib/socialnetwork.db');
