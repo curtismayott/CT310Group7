@@ -55,9 +55,17 @@
 			
 				echo '<h2>' . $user->first_name . ' ' . $user->last_name . '</h2>';
 				echo '<img class="profile-pic" src="assets/img/'. $userName . '.jpg" alt="' . $userName . '\'s image profile">';
-				$target_dir = "assets/img/";
+				/*$target_dir = "assets/img/";
 				$target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
 				$uploadOk = 1;
+				$imageFileType = pathinfo($target_file, PATHINFO_EXTENSION);
+				
+				if (isset($_POST["submit"])) {
+					$check = getimagesize($_FILES["fileToUpload"]["tmp_name"]);
+					if($check !== false){
+						
+					}
+				}*/
 				
 				echo '<div class="wrap-textarea">';
 				echo '<form id="form1" name="form1" method="post" action="profileEdit.php?user=' . $userName . '">';
