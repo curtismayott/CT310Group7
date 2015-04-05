@@ -160,7 +160,7 @@ boolean :: public function isAdmin($user_id)
 			}
 			$dbh = null;
 		}
-		// have not tested.
+		// working
 		public function getDescriptionByUserID($user_id){
 			$dbh = new PDO('sqlite:./lib/socialnetwork.db');
 			$sql = "SELECT * FROM Users WHERE user_id = " . $user_id . ";";
@@ -170,7 +170,7 @@ boolean :: public function isAdmin($user_id)
 			}
 			$dbh = null;
 		}
-		// have not tested.
+		// working
 		public function getDescriptionByUsername($user_name){
 			$dbh = new PDO('sqlite:./lib/socialnetwork.db');
 			$sql = "SELECT * FROM Users WHERE user_name = '" . $user_name . "';";

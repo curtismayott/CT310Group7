@@ -5,12 +5,18 @@
 	error_reporting(-1);
 	ini_set('display_errors', 'On');
 	// end error reporting
-	$title = "Login";
+
 	session_name("SocialNetwork");
 	session_start();
 	require_once "./user.php";
 	require_once "./lib/dbhelper.php";
+	include("lib/files.php");
+	include("lib/userOperations.php");
+	
 	$dbh = new DBHelper();
+	$userName = isset($_GET['user']) ? $_GET['user'] : "";
+	$user = $dbh->getUserByUsername($userName);
+	
 	if(!isset($_SESSION['user_name']) && !$dbh->isUserLoggedIn($_SESSION['user_id'])){
 		// cannot view edit page if not logged in
 		header('Location:./login.php');
@@ -20,13 +26,10 @@
 ?>
 	<div class="leftContent"><?php
 		if ($userName == "") {
-			echo '<h2>Profile not found!</h2>';
+			echo '<h2>Username not found!</h2>';
 		} else {
-			$file = new files("users");
 			
-			if ($file->exists()) {
-				$fileContents = $file->readFile();
-				$userInfo = $fileContents[$userName-1];
+			if ($user != "") {
 				
 				if(isset($_POST['message']) && isset($_POST['name'])){
 					$description = util::sanitizeData($_POST['message']);
@@ -44,28 +47,27 @@
 						$lastName = $fullName[1];
 					}
 					
-					$fileContents[$userName-1][1] = $name;
-					$fileContents[$userName-1][2] = $lastName;
-					$fileContents[$userName-1][3] = $description;
 					
-					$isSaved = $file->writeFile($fileContents);
+					
+					
 				}
 				
-				$fileContents = $file->readFile();
-				$userInfo = $fileContents[$userName-1];
-
-				echo '<h2>' . $userInfo[1] . ' ' . $userInfo[2] . '</h2>';
-				echo '<img class="profile-pic" src="assets/img/profile'. $userName . '.jpg" alt="' . $fileContents[0][2] . '\'s image profile">';
-				$description = $userInfo[3];
+			
+				echo '<h2>' . $user->first_name . ' ' . $user->last_name . '</h2>';
+				echo '<img class="profile-pic" src="assets/img/'. $userName . '.jpg" alt="' . $userName . '\'s image profile">';
+				$target_dir = "assets/img/";
+				$target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
+				$uploadOk = 1;
 				
 				echo '<div class="wrap-textarea">';
 				echo '<form id="form1" name="form1" method="post" action="profileEdit.php?user=' . $userName . '">';
 				echo '<label for="name">Name</label>';
-				echo '<input type="text" id="name" name="name" value="' . $userInfo[1] . ' ' . $userInfo[2] . '"/>';
+				echo '<input type="text" id="name" name="name" value="' . $user->first_name . ' ' . $user->last_name . '"/>';
 				echo '<label for="message">Description</label>';
 				echo '<textarea name="message" id="message" rows="25" cols="50">';
 
-				echo $description;
+				$desc = $dbh->getDescriptionByUserID($user->user_id);
+				echo $desc;
 
 				echo '</textarea>';
 				echo '<input type="submit" name="button" id="button" value="Save"/>';
