@@ -54,9 +54,9 @@
 				
 				//image upload
 				echo '<form action="" method="post" enctype="multipart/form-data">';
-				echo 'Image: <input type="file" name="file"/>';
-				echo '<input type="submit" name="button" id="button" value="Submit new image">';
-				echo '</form>';
+				echo ' <div class="form-group"> Image: <input type="file" name="file"/>';
+				echo '<input type="submit" name="button" id="button" class="btn btn-info" value="Submit new image">';
+				echo '</div></form>';
 				
 				
 				/*if(isset($_FILES["file"])){
@@ -120,7 +120,7 @@
 				echo '</div>';
 			    
 			    
-				echo '<input type="submit" name="button" id="button" value="Save"/>';
+				echo '<input type="submit" name="button" id="button" class="btn btn-info" value="Save"/>';
 				echo '<a href="profile.php?user=' . $userName . '" >Go back</a>';
 					
 				if (isset($isSaved) && $isSaved){ 

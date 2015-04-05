@@ -76,7 +76,7 @@
 				<label for="lastname">Last Name:</label>
 				<input type="text" id="lastname" name="lastname" required  />
 			</div>
-			<div>
+			<div class="form-group">
 				<label for="gender">Gender:</label>
 				<select name="gender">
 					<option value="">Select</option>
@@ -85,11 +85,11 @@
 					<option value="na">N/A</option>
 				</select>
 			</div>
-			<div>
+			<div class="form-group">
 				<label for="mobile">Mobile number:</label>
 				<input type="text" id="mobile" name="mobile" required />
 			</div>
-			<div>
+			<div class="form-group">
 				<label for="email">Email:</label>
 				<input type="text" id="email" name="email" required />
 			</div>

@@ -35,11 +35,13 @@
 							foreach($friends as $f){
 								echo "<tr>";
 								$href = "profile.php?user=$f->user_name";
-								echo "<td> <a href = \"$href\"> $f->user_name </a></td>";
+								$src = $helper->getImageByUserID($f->user_id);
+								echo "<td class=\"col-md-3\">  <a href = \"$href\"><img class = \"thumbnail\" src = \"assets/img/$src\" alt = \"$f->user_name\"></a> </td>";
+								echo "<td class=\"col-md-5\"> <a href = \"$href\"> $f->user_name </a> </td>";
 								if($f->logged_in_status == 1){ //logged in
-									echo "<td> (online) </td>";
+									echo "<td class=\"col-md-4\"> <img class = \"online\" src=\"assets/img/dot.gif\">online </td>";
 								}else{
-									echo "<td>  </td>";
+									echo "<td class=\"col-md-4\">  </td>";
 								}
 								echo "</tr>";
 							}
