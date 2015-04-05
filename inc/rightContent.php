@@ -13,11 +13,11 @@
 					foreach($userArray as $u){
 						echo "<tr>";
 						$href = "profile.php?user=$u->user_name";
-						//$src = getImageByUsername($u->user_name);
-						//echo "<td> <img src = \"$src\" alt = \"$u->user_name\"> </td>";
-						echo "<td> <a href = \"$href\"> $u->user_name </a> </td>";
+						$src = $helper->getImageByUserID($u->user_id);
+						echo "<td class=\"col-md-2\"> <img class = \"thumbnail\" src = \"assets/img/$src\" alt = \"$u->user_name\"> </td>";
+						echo "<td class=\"col-md-2\"> <a href = \"$href\"> $u->user_name </a> </td>";
 						if($u->logged_in_status == 1){ //logged in
-							echo "<td> <img src=\"assets/img/dot.gif\">online </td>";
+							echo "<td class=\"col-md-2\"> <img class = \"online\" src=\"assets/img/dot.gif\">online </td>";
 						}else{
 							echo "<td>  </td>";
 						}

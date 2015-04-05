@@ -214,10 +214,17 @@ hr {
 	font-family: slim;
 }
 
-.rightContent td img{
+.thumbnail{
+	width: 50px;
+	padding:0px;
+}
+
+.rightContent .online{
 	width: 10px;
 	padding-right:3px;
 }
+
+
 
 .rightContent ul li {
 	padding-left: 20px;
