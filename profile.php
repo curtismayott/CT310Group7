@@ -41,11 +41,9 @@
 								$dbh->requestFriend($_SESSION['user_id'], $user->user_id);
 							}
 						}
-							
 							//desc, gender, etc.
-							echo '<h4><b>Description: </b></h4>';
 							$desc = $helper->getDescriptionByUserID($user->user_id);
-							echo $desc;
+							echo '<h4><b>Description: </b>' . $desc . '</h4>';	
 							$gender = $helper->getGenderByUsername($user->user_name);
 							echo '<h5>Gender: ' . $gender . '</h5>';
 							$mobile = $helper->getMobileByUsername($user->user_name);
@@ -80,7 +78,7 @@
 				<?php
 					if($util->isIpValid()){
 						if($_SESSION['user_name'] == $user->user_name){
-						echo '<p><a href="profileEdit.php?user=' . $userName . '">Edit information</a></p>';
+						echo '<p><a href="profileEdit.php?user=' . $userName . '">Edit your information</a></p>';
 						}
 					}
 				?>

@@ -186,6 +186,25 @@ boolean :: public function isAdmin($user_id)
 			$sql = "UPDATE Users SET description = '" . $description . "' WHERE user_id = " . $user_id;
 			$dbh->exec($sql);
 		}
+		
+		public function updateUserGenderByUserID($user_id, $gender){
+			$dbh = new PDO('sqlite:./lib/socialnetwork.db');
+			$sql = "UPDATE Users SET gender = '" . $gender . "' WHERE user_id = " . $user_id;
+			$dbh->exec($sql);
+		}
+		
+		public function updateUserMobileByUserID($user_id, $mobile){
+			$dbh = new PDO('sqlite:./lib/socialnetwork.db');
+			$sql = "UPDATE Users SET mobile = '" . $mobile . "' WHERE user_id = " . $user_id;
+			$dbh->exec($sql);
+		}
+		
+		public function updateUserEmailByUserID($user_id, $email){
+			$dbh = new PDO('sqlite:./lib/socialnetwork.db');
+			$sql = "UPDATE Users SET email = '" . $email . "' WHERE user_id = " . $user_id;
+			$dbh->exec($sql);
+		}
+		
 		// have not tested.
 		public function updateUserDescriptionByUsername($user_name, $description){
 			$dbh = new PDO('sqlite:./lib/socialnetwork.db');
