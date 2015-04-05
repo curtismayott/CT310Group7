@@ -31,30 +31,40 @@
 			
 			if ($user != "") {
 				
-				if(isset($_POST['message']) && isset($_POST['name'])){
+				if(isset($_POST['message']) && isset($_POST['firstname']) && isset($_POST['lastname']) && isset($_POST['gender']) && isset($_POST['mobile']) && isset($_POST['email'])){
+					
 					$description = util::sanitizeData($_POST['message']);
-					$fullName = util::sanitizeData($_POST['name']);
+					$firstName = util::sanitizeData($_POST['firstname']);
+					$lastName = util::sanitizeData($_POST['lastname']);
+					$gender = $_POST['gender'];
+					$mobile = util::sanitizeData($_POST['mobile']);
+					$email = $_POST['email'];				
 					
-					$fullName = explode(' ', $_POST['name']);
-					
-					$name = $fullName[0];
-					$lastName = "";
-					
-					if (count($fullName) > 2) {
-						unset($fullName[0]);
-						$lastName = join(' ', $fullName);
-					} else {
-						$lastName = $fullName[1];
-					}
-					
-					
-					
+					$dbh->updateUserFirstNameByUserID($user->user_id, $firstName);
+					$dbh->updateUserLastNameByUserID($user->user_id, $lastName);
+					$dbh->updateUserGenderByUserID($user->user_id, $gender);
+					$dbh->updateUserMobileByUserID($user->user_id, $mobile);
+					$dbh->updateUserEmailByUserID($user->user_id, $email);
 					
 				}
 				
-			
 				echo '<h2>' . $user->first_name . ' ' . $user->last_name . '</h2>';
 				echo '<img class="profile-pic" src="assets/img/'. $userName . '.jpg" alt="' . $userName . '\'s image profile">';
+				
+				
+				//image upload
+				echo '<form action="" method="post" enctype="multipart/form-data">';
+				echo 'Image: <input type="file" name="file"/>';
+				echo '<input type="submit" name="button" id="button" value="Submit new image">';
+				echo '</form>';
+				
+				
+				/*if(isset($_FILES["file"])){
+					if($_FILES["file"]["error"] == 0){
+						$type = explode ("/",$_FILES["file"]["type"]);
+					}
+				}*/
+				
 				/*$target_dir = "assets/img/";
 				$target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
 				$uploadOk = 1;
@@ -67,11 +77,14 @@
 					}
 				}*/
 				
-				//name
 				echo '<div class="wrap-textarea">';
-				echo '<form id="form1" name="form1" method="post" action="profileEdit.php?user=' . $userName . '">';
-				echo '<label for="name">Name</label>';
-				echo '<input type="text" id="name" name="name" value="' . $user->first_name . ' ' . $user->last_name . '"/>';
+				echo '<form method="post" action="profileEdit.php?user=' . $userName . '">';
+				
+				//names
+				echo '<label for="firstname">First name</label>';
+				echo '<input type="text" id="firstname" name="firstname" value="' . $user->first_name . '"/>';
+				echo '<label for="lastname">Last name</label>';
+				echo '<input type="text" id="lastname" name="lastname" value="' . $user->last_name . '"/>';
 				
 				//description
 				echo '<label for="message">Description</label>';
@@ -82,26 +95,26 @@
 				
 				//gender
 				echo '<div>';
-				echo '<label for="gender">Gender:</label>';
+				echo '<label for="gender">Gender  </label>';
 				echo '<select name="gender">';
 				$gender = $dbh->getGenderByUsername($user->user_name);
 				echo '<option value="">' . $gender . '</option>';
-				echo '<option value="male">Male</option>';
-				echo '<option value="female">Female</option>';
-				echo '<option value="na">N/A</option>';
+				echo '<option value="Male">Male</option>';
+				echo '<option value="Female">Female</option>';
+				echo '<option value="N/A">N/A</option>';
 				echo '</select>';
 			    echo '</div>';
 			   
 			    //mobile
 			    echo '<div>';
-				echo '<label for="mobile">Mobile number:</label>';
+				echo '<label for="mobile">Mobile number</label>';
 				$mobile = $dbh->getMobileByUsername($user->user_name);
 				echo '<input type="text" id="mobile" name="mobile" value="' . $mobile . '" required />';
 				echo '</div>';
 			    
 			    //email
 			    echo '<div>';
-				echo '<label for="email">Email:</label>';
+				echo '<label for="email">Email</label>';
 				$email = $dbh->getEmailByUsername($user->user_name);
 				echo '<input type="text" id="email" name="email" value="' . $email . '" required />';
 				echo '</div>';
