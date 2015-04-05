@@ -47,12 +47,12 @@ boolean :: public function isAdmin($user_id)
 			print_r("INIT BEGIN");
 			$dbh = new PDO('sqlite:./lib/socialnetwork.db');
 			$dbh->exec("CREATE TABLE IF NOT EXISTS Users (user_id INTEGER PRIMARY KEY ASC, user_name TEXT, 
-					user_type TEXT, first_name TEXT, last_name TEXT, gender TEXT, mobile VARCHAR, email TEXT, 
+					user_type TEXT, first_name TEXT, last_name TEXT, gender TEXT, mobile TEXT, email TEXT, 
 					password TEXT, question_id INTEGER, question_answer TEXT, logged_in_status INTEGER, 
 					description TEXT, image TEXT);");
 			print_r("INIT USERS");
-			$this->insertUser('scat', 'user','Simons', 'Cat', 'Male', '303030303', 'simonscat@test','test123', '1', 'red', 0, 'Im a cat', '');
-			$this->insertUser('admin', 'admin', 'Admin', 'istrator', '???', '970970970', 'admin@ct310grp7', 'password', '1', 'light', 0, 'Im an admin', '');
+			$this->insertUser('scat', 'user','Simons', 'Cat', 'Male', '303030303', 'simonscat@test','test123', '1', 'red', 0, 'Im a cat');
+			$this->insertUser('admin', 'admin', 'Admin', 'istrator', '???', '970970970', 'admin@ct310grp7', 'password', '1', 'light', 0, 'Im an admin');
 
 			print_r("INIT QUESTIONS");
 			$sql = "CREATE TABLE IF NOT EXISTS Questions (question_id INTEGER PRIMARY KEY ASC, question_text TEXT);";
@@ -96,7 +96,7 @@ boolean :: public function isAdmin($user_id)
 			}
 			return $count;
 		}
-		public function insertUser($user_name, $user_type, $first_name, $last_name, $password, $question_id, $question_answer, $logged_in_status, $description, $image){
+		public function insertUser($user_name, $user_type, $first_name, $last_name, $gender, $mobile, $email, $password, $question_id, $question_answer, $logged_in_status, $description){
 			$dbh = new PDO('sqlite:./lib/socialnetwork.db');
 			$dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 			$sql = "SELECT * FROM Users WHERE user_name = '" . $user_name . "'";
@@ -111,9 +111,9 @@ boolean :: public function isAdmin($user_id)
 			}else{
 				$sql = "INSERT INTO Users (user_name, user_type, first_name, last_name, gender, mobile, email, password, question_id, question_answer, logged_in_status, description, image) 
 						VALUES ('" . $user_name . "', '" . $user_type . "', '" . $first_name
-						 . "', '" . $last_name . "', '" . $password
+						 . "', '" . $last_name . "', '" . $gender . "', '" . $mobile . "', '" . $email . "', '" . $password
 						 . "', " . $question_id . ", '" . $question_answer . "', " . $logged_in_status 
-						 . ", '" . $description . "', '" . $image . "')";
+						 . ", '" . $description . "', '" . $user_name . ".jpg')";
 				$dbh->exec($sql);
 				//print_r("User inserted successfully");
 				echo "<div class=\"alert alert-success\"> User inserted successfully </div>";
@@ -476,8 +476,7 @@ boolean :: public function isAdmin($user_id)
 		// have not tested.
 		public function getPendingFriends($user_id, $status){
 			$dbh = new PDO('sqlite:./lib/socialnetwork.db');
-			$sql = "SELECT * FROM Users WHERE logged_in_status = 1 
-					AND IN (SELECT friend_user_id FROM Friends WHERE user_id = " . $user_id . " AND status = 1);";
+			$sql = "SELECT * FROM Users WHERE user_id IN (SELECT friend_user_id FROM Friends WHERE user_id = " . $user_id . " AND status = 1);";
 			$users = array();
 			foreach($dbh->query($sql) as $result){
 				$user = new User();
@@ -530,13 +529,8 @@ boolean :: public function isAdmin($user_id)
 		public function requestFriend($user_id, $friend_user_id){
 			$dbh = new PDO('sqlite:./lib/socialnetwork.db');
 			$sql = "SELECT * FROM Friends WHERE user_id = " . $user_id . " AND friend_user_id = " . $friend_user_id;
-			$isFriend = false;
-			foreach($dbh->query($sql) as $result){
-				print_r("Friend already requested or added.");
-				$isFriend = true;
-			}
-			if($isFriend == false){
-				$dbh->exec("INSERT INTO Friends (user_id, friend_user_id) VALUES(" . $user_id . ", " . $friend_user_id .", 1)");
+			if(!$this->checkFriendsWithIDs($user_id, $friend_user_id)){
+				$dbh->exec("INSERT INTO Friends (user_id, friend_user_id, status) VALUES(" . $user_id . ", " . $friend_user_id .", 1)");
 			}
 			$dbh = null;
 		}
