@@ -34,6 +34,13 @@
 							echo '<h4><b>Description: </b></h4>';
 							$desc = $helper->getDescriptionByUserID($user->user_id);
 							echo $desc;
+							$gender = $helper->getGenderByUsername($user->user_name);
+							echo '<h5>Gender: ' . $gender . '</h5>';
+							$mobile = $helper->getMobileByUsername($user->mobile);
+							echo '<h5>Mobile: ' . $mobile . '</h5>';
+							$email = $helper->getEmailByUsername($user->email);
+							echo '<h5>Email: ' . $email . '</h5>';
+							
 						} else {
 							echo '<h2>Only logged in users can view profile information!</h2>';
 						}
