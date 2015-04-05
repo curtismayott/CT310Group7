@@ -180,6 +180,20 @@ boolean :: public function isAdmin($user_id)
 			}
 			$dbh = null;
 		}
+		
+		public function updateUserFirstNameByUserID($user_id, $first_name){
+			$dbh = new PDO('sqlite:./lib/socialnetwork.db');
+			$sql = "UPDATE Users SET first_name = '" . $first_name . "' WHERE user_id = " . $user_id;
+			$dbh->exec($sql);
+		}
+		
+		public function updateUserLastNameByUserID($user_id, $last_name){
+			$dbh = new PDO('sqlite:./lib/socialnetwork.db');
+			$sql = "UPDATE Users SET last_name = '" . $last_name . "' WHERE user_id = " . $user_id;
+			$dbh->exec($sql);
+		}
+		
+		
 		// have not tested.
 		public function updateUserDescriptionByUserID($user_id, $description){
 			$dbh = new PDO('sqlite:./lib/socialnetwork.db');
