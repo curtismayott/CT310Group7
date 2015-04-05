@@ -18,7 +18,6 @@
 
 			<div class="leftContent">
 				<?php
-				echo "This is the profile page for $user->first_name $user->last_name";
 				
 				//print_r($userName);						
 				if ($userName == "") {

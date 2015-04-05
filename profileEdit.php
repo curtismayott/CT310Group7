@@ -67,17 +67,46 @@
 					}
 				}*/
 				
+				//name
 				echo '<div class="wrap-textarea">';
 				echo '<form id="form1" name="form1" method="post" action="profileEdit.php?user=' . $userName . '">';
 				echo '<label for="name">Name</label>';
 				echo '<input type="text" id="name" name="name" value="' . $user->first_name . ' ' . $user->last_name . '"/>';
+				
+				//description
 				echo '<label for="message">Description</label>';
-				echo '<textarea name="message" id="message" rows="25" cols="50">';
-
+				echo '<textarea name="message" id="message" rows="10" cols="50">';
 				$desc = $dbh->getDescriptionByUserID($user->user_id);
 				echo $desc;
-
 				echo '</textarea>';
+				
+				//gender
+				echo '<div>';
+				echo '<label for="gender">Gender:</label>';
+				echo '<select name="gender">';
+				$gender = $dbh->getGenderByUsername($user->user_name);
+				echo '<option value="">' . $gender . '</option>';
+				echo '<option value="male">Male</option>';
+				echo '<option value="female">Female</option>';
+				echo '<option value="na">N/A</option>';
+				echo '</select>';
+			    echo '</div>';
+			   
+			    //mobile
+			    echo '<div>';
+				echo '<label for="mobile">Mobile number:</label>';
+				$mobile = $dbh->getMobileByUsername($user->user_name);
+				echo '<input type="text" id="mobile" name="mobile" value="' . $mobile . '" required />';
+				echo '</div>';
+			    
+			    //email
+			    echo '<div>';
+				echo '<label for="email">Email:</label>';
+				$email = $dbh->getEmailByUsername($user->user_name);
+				echo '<input type="text" id="email" name="email" value="' . $email . '" required />';
+				echo '</div>';
+			    
+			    
 				echo '<input type="submit" name="button" id="button" value="Save"/>';
 				echo '<a href="profile.php?user=' . $userName . '" >Go back</a>';
 					
@@ -91,6 +120,8 @@
 			}
 		}
 		?>
+		
+		
 
 		<hr/>
 	</div>
