@@ -1,1 +1,4 @@
+Alegreya-Regular.otf
+AndBasR.ttf
+KaushanScript-Regular.otf
 style.css

@@ -1,3 +1,4 @@
+friend_requests.php
 index.php
 login.php
 logout.php

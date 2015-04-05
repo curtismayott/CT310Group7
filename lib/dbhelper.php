@@ -72,7 +72,7 @@ boolean :: public function isAdmin($user_id)
 					status INTEGER)";
 			$dbh->exec($sql);
 			// insert friends list for testing
-			
+			$this->requestFriend(1, 2);
 			print_r("INIT END");
 			
 			$dbh = null;
@@ -345,7 +345,36 @@ boolean :: public function isAdmin($user_id)
 			$dbh->exec($sql);
 		 	$dbh = null;
 		}
-		
+		public function getGenderByUsername($user_name){
+			$dbh = new PDO('sqlite:./lib/socialnetwork.db');
+			$sql = "SELECT gender FROM Users WHERE user_name = '" . $user_name . "'";
+			$gender = "";
+			foreach ($dbh->query($sql) as $result) {
+				$gender = $result['gender'];
+			}
+			$dbh = null;
+			return $gender;
+		}
+		public function getMobileByUsername($user_name){
+			$dbh = new PDO('sqlite:./lib/socialnetwork.db');
+			$sql = "SELECT mobile FROM Users WHERE user_name = '" . $user_name . "'";
+			$mobile = "";
+			foreach ($dbh->query($sql) as $result) {
+				$mobile = $result['mobile'];
+			}
+			$dbh = null;
+			return $mobile;
+		}
+		public function getEmailByUsername($user_name){
+			$dbh = new PDO('sqlite:./lib/socialnetwork.db');
+			$sql = "SELECT gender FROM Users WHERE user_name = '" . $user_name . "'";
+			$email = "";
+			foreach ($dbh->query($sql) as $result) {
+				$email = $result['email'];
+			}
+			$dbh = null;
+			return $email;
+		}
 		
 		// logged in status access
 		public function updateUserLoggedInStatus($user_id, $logged_in_status){
@@ -498,7 +527,24 @@ boolean :: public function isAdmin($user_id)
 			$dbh = null;
 			return false;
 		}
-		
+		public function requestFriend($user_id, $friend_user_id){
+			$dbh = new PDO('sqlite:./lib/socialnetwork.db');
+			$sql = "SELECT * FROM Friends WHERE user_id = " . $user_id . " AND friend_user_id = " . $friend_user_id;
+			$isFriend = false;
+			foreach($dbh->query($sql) as $result){
+				print_r("Friend already requested or added.");
+				$isFriend = true;
+			}
+			if($isFriend == false){
+				$dbh->exec("INSERT INTO Friends (user_id, friend_user_id) VALUES(" . $user_id . ", " . $friend_user_id .", 1)");
+			}
+			$dbh = null;
+		}
+		public function acceptFriend($user_id, $friend_user_id){
+			$dbh = new PDO('sqlite:./lib/socialnetwork.db');
+			$dbh->exec("UPDATE Friends SET status = 2 WHERE user_id = " . $user_id . " AND friend_user_id = " . $friend_user_id . ";");
+			$dbh->exec("INSERT INTO Friends (user_id, friend_user_id, status) VALUES(" . $friend_user_id . ", " . $user_id . " , 2)");
+		}
 		public function isAdmin($user_id){
 			$dbh = new PDO('sqlite:./lib/socialnetwork.db');
 			$sql = "SELECT * FROM Users WHERE user_id = " . $user_id;
