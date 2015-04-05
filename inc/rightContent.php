@@ -1,4 +1,4 @@
-			<div class="rightContent col-md-4">
+			<div class="rightContent">
 				<h3>Users</h3>
 				<?php
 				$helper = new DBHelper();
