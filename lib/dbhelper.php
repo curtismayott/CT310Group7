@@ -542,7 +542,8 @@ boolean :: public function isAdmin($user_id)
 		}
 		public function rejectFriend($user_id, $friend_user_id){
 			$dbh = new PDO('sqlite:./lib/socialnetwork.db');
-			$sql = "DELETE FROM Friends WHERE user_id = " . $user_id;
+			$sql = "DELETE FROM Friends WHERE user_id = " . $user_id . " AND friend_user_id = " . $friend_user_id;
+			$dbh->exec($sql);
 			$dbh = null;
 		}
 		public function isAdmin($user_id){

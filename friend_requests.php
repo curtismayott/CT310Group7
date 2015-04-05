@@ -10,6 +10,9 @@
 	require_once "./lib/dbhelper.php";
 	$dbh = new DBHelper();
 	include("./inc/header.php");
+	if(!isset($_SESSION['user_name'])){
+		header("Location:./login.php");
+	}
 	$user = $dbh->getUserByUsername($_SESSION['user_name']);
 	$friends = $dbh->getPendingFriends($user->user_id, 1);
 	$i = 0;
@@ -17,7 +20,8 @@
 		if(isset($_POST[$friends[$i]->user_id . '_accept'])){
 			$dbh->acceptFriend($user->user_id, $friends[$i]->user_id);
 			header("Location:./friend_requests.php");
-		}else if(isset($_POST[$friends[$i]->user_id . '_reject'])){
+		}
+		if(isset($_POST[$friends[$i]->user_id . '_reject'])){
 			$dbh->rejectFriend($user->user_id, $friends[$i]->user_id);
 			header("Location:./friend_requests.php");
 		}

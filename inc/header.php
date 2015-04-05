@@ -32,7 +32,16 @@
 				<ul>
 					<li><a href="index.php">HOME</a></li>
 					<li><a href="search.php">SEARCH</a></li>
-					<?php 
+					
+					<?php
+						if(isset($_SESSION['user_name']) && $dbh->isUserLoggedIn($_SESSION['user_id'])){
+							$pending = $dbh->getPendingFriends($_SESSION['user_id'], 1);
+							if(count($pending) > 0){
+								?>
+								<li><a id="friend-requests" href="./friend_requests.php">Requests</a></li>
+								<?php
+							}
+						}
 						if(isset($_SESSION['user_name']) && $dbh->isAdmin($_SESSION['user_id']) && $dbh->isUserLoggedIn($_SESSION['user_id'])){
 						// add link to register users (isAdmin = true)
 							?>
