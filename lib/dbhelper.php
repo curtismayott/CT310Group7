@@ -367,7 +367,7 @@ boolean :: public function isAdmin($user_id)
 		}
 		public function getEmailByUsername($user_name){
 			$dbh = new PDO('sqlite:./lib/socialnetwork.db');
-			$sql = "SELECT gender FROM Users WHERE user_name = '" . $user_name . "'";
+			$sql = "SELECT email FROM Users WHERE user_name = '" . $user_name . "'";
 			$email = "";
 			foreach ($dbh->query($sql) as $result) {
 				$email = $result['email'];
