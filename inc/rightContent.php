@@ -14,12 +14,12 @@
 						echo "<tr>";
 						$href = "profile.php?user=$u->user_name";
 						$src = $helper->getImageByUserID($u->user_id);
-						echo "<td class=\"col-md-2\">  <a href = \"$href\"><img class = \"thumbnail\" src = \"assets/img/$src\" alt = \"$u->user_name\"></a> </td>";
-						echo "<td class=\"col-md-2\"> <a href = \"$href\"> $u->user_name </a> </td>";
+						echo "<td class=\"col-md-3\">  <a href = \"$href\"><img class = \"thumbnail\" src = \"assets/img/$src\" alt = \"$u->user_name\"></a> </td>";
+						echo "<td class=\"col-md-5\"> <a href = \"$href\"> $u->user_name </a> </td>";
 						if($u->logged_in_status == 1){ //logged in
-							echo "<td class=\"col-md-2\"> <img class = \"online\" src=\"assets/img/dot.gif\">online </td>";
+							echo "<td class=\"col-md-4\"> <img class = \"online\" src=\"assets/img/dot.gif\">online </td>";
 						}else{
-							echo "<td>  </td>";
+							echo "<td class=\"col-md-4\">  </td>";
 						}
 						echo "</tr>";
 					}

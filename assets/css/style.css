@@ -201,17 +201,22 @@ hr {
 	height: 100%;
 	padding: 2%;
 	overflow-y: auto;
-	overflow-x: scroll;
+	overflow-x: hidden;
 	text-align: left;
 	color: #4b4d52;
 }
 
 .rightContent table {
-    width: 100%;
+    max-width: 100%;
 }
 
 .rightContent h3{
 	font-family: slim;
+}
+
+.rightContent td{
+	overflow: hidden;
+	text-overflow: ellipsis;
 }
 
 .thumbnail{
