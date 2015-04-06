@@ -77,10 +77,11 @@
 				<hr/>
 				<?php
 					if($util->isIpValid()){
+						if(isset($_SESSION['user_name']) && isset($user->user_name)){
 						if($_SESSION['user_name'] == $user->user_name){
 						echo '<p><a href="profileEdit.php?user=' . $userName . '">Edit your information</a></p>';
 						}
-					}
+					}}
 				?>
 			</div>
 			
