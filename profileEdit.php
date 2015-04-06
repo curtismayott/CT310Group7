@@ -40,6 +40,7 @@
 					$mobile = util::sanitizeData($_POST['mobile']);
 					$email = $_POST['email'];				
 					
+					$dbh->updateUserDescriptionbyUserID($user->user_id, $description);
 					$dbh->updateUserFirstNameByUserID($user->user_id, $firstName);
 					$dbh->updateUserLastNameByUserID($user->user_id, $lastName);
 					$dbh->updateUserGenderByUserID($user->user_id, $gender);
@@ -49,15 +50,44 @@
 				}
 				
 				echo '<h2>' . $user->first_name . ' ' . $user->last_name . '</h2>';
-				echo '<img class="profile-pic" src="assets/img/'. $userName . '.jpg" alt="' . $userName . '\'s image profile">';
+				$userimg = $dbh->getImageByUserID($user->user_id);
+				echo '<img class="profile-pic" src="assets/img/' . $userimg .'" alt="' . $userName . '\'s image profile">';
 				
 				
-				//image upload
-				echo '<form action="" method="post" enctype="multipart/form-data">';
-				echo ' <div class="form-group"> Image: <input type="file" name="file"/>';
-				echo '<input type="submit" name="button" id="button" class="btn btn-info" value="Submit new image">';
-				echo '</div></form>';
+				//image upload			
+				if ($_SESSION['user_name'] != "" && substr($_SERVER['REMOTE_ADDR'],0,6)=="129.82"){
+					
+					$max_file_size = 1000000;
+					
+					if(isset($_FILES["file"])){
+						if($_FILES["file"]["error"] == 0){
+							$type = explode("/",$_FILES["file"]["type"]);
+							if ($type[0] == "image"){
+								if ($_FILES["file"]["size"] < $max_file_size){
+									$q = "SELECT * FROM Users";
+									$db = new PDO('sqlite:./lib/socialnetwork.db');
+									$ret = $db->query($q);
+									foreach ($ret as $r){
+										if($r['user_id'] == $_SESSION['user_id']){
+											move_uploaded_file($_FILES["file"]["tmp_name"],"assets/img/".$_FILES["file"]["name"]);
+											chmod("assets/img/".$_FILES["file"]["name"],0755);
+											$query = "UPDATE Users SET image='".$_FILES['file']['name']."' WHERE user_id='".$r['user_id']."';";
+											$db->exec($query);
+										}
+									} echo 'Upload successful.';
+								} else { echo 'File size too big'; }
+							} else { echo 'Only images can be uploaded'; }
+						} else { echo 'Upload failed'; }
+					}
+					
+					echo '<form action="profileEdit.php?user=' . $userName . '" method="post" enctype="multipart/form-data">';
+					echo ' <div class="form-group"> Image: <input type="file" name="file"/>';
+					echo '<input type="submit" name="button" id="button" class="btn btn-info" value="Submit new image">';
+					echo '</div></form>';
 				
+				} else {
+					echo 'Your IP must be whitelisted to upload an image file.';
+				}
 				
 				/*if(isset($_FILES["file"])){
 					if($_FILES["file"]["error"] == 0){

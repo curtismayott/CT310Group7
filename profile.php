@@ -27,7 +27,8 @@
 					if ($user != "") {
 						
 						echo '<h2>' . $user->first_name . ' ' . $user->last_name . '</h2>';
-						echo '<img class="img" src="assets/img/' . $userName . '.jpg" alt="' . $userName . '\'s profile pic">';
+						$userimg = $dbh->getImageByUserID($user->user_id);
+						echo '<img class="img" src="assets/img/' . $userimg . '" alt="' . $userName . '\'s profile pic">';
 						
 						if (isset($_SESSION['user_name']) && $dbh->isUserLoggedIn($_SESSION['user_id'])){
 							
