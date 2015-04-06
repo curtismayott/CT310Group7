@@ -35,12 +35,12 @@
 							//add friend button
 						if($_SESSION['user_name'] != $user->user_name){
 							
-							$dbh = new PDO('sqlite:./lib/socialnetwork.db');
+							$dbh1 = new PDO('sqlite:./lib/socialnetwork.db');
 							$query = "SELECT status FROM Friends WHERE user_id = '" . $user->user_id . "'";
 							$result = '';
-							foreach($dbh->query($query) as $row){
+							foreach($dbh1->query($query) as $row){
 								$result = $row['status'];
-								$dbh = null;
+								$dbh1 = null;
 							}
 							
 							if ($result < 1) {
