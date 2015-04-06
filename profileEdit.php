@@ -74,9 +74,9 @@
 											$query = "UPDATE Users SET image='".$_FILES['file']['name']."' WHERE user_id='".$r['user_id']."';";
 											$db->exec($query);
 										}
-									} echo 'Upload successful.';
-								} else { echo 'File size too big'; }
-							} else { echo 'Only images can be uploaded'; }
+									} echo '<div class="alert alert-success"> Upload successful.</div>';
+								} else { echo '<div class="alert alert-danger">File size too big</div>'; }
+							} else { echo '<div class="alert alert-danger">Only images can be uploaded<div>'; }
 						} else { echo 'Upload failed'; }
 					}
 					

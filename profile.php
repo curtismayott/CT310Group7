@@ -34,11 +34,23 @@
 							
 							//add friend button
 						if($_SESSION['user_name'] != $user->user_name){
+							
+							$dbh = new PDO('sqlite:./lib/socialnetwork.db');
+							$query = "SELECT status FROM Friends WHERE user_id = '" . $user->user_id . "'";
+							$result = '';
+							foreach($dbh->query($query) as $row){
+								$result = $row['status'];
+								$dbh = null;
+							}
+							
+							if ($result < 1) {
+							
 							echo '<form action="profile.php?user=' . $user->user_name . '" method="post">';
 							echo '<input type="submit" name="friend" value="Add friend" />';
 							echo '</form>';
 							if (isset($_POST['friend'])){
 								$dbh->requestFriend($_SESSION['user_id'], $user->user_id);
+								}
 							}
 						}
 							//desc, gender, etc.
