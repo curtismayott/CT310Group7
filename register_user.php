@@ -28,7 +28,8 @@
 			$_POST['password'],
 			$_POST['question'],
 			$_POST['questionanswer'],
-			0
+			0,
+			$_POST['description']
 		);
 	}
 	
@@ -110,6 +111,10 @@
 			<div class="form-group">
 				<label for="questionanswer">Question Answer:</label>
 				<input type="text" id="questionanswer" name="questionanswer" required  />
+			</div>
+			<div class="form-group">
+				<label for="description">Description:</label>
+				<input type="text" id="description" name="description" required  />
 			</div>
 			<div class="form-group">
 				<input type="submit" class="btn btn-info"/>
